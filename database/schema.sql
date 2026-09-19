@@ -109,6 +109,7 @@ CREATE TABLE IF NOT EXISTS alumni_profiles (
     verification_status VARCHAR(20) DEFAULT 'pending',
     verified_by UUID REFERENCES users(id) ON DELETE SET NULL,
     verified_at TIMESTAMP,
+    is_public BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );

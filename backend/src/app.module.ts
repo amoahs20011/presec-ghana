@@ -8,6 +8,8 @@ import { databaseConfig } from './config/database.config';
 import { SchoolsModule } from './modules/schools/schools.module';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { AlumniModule } from './modules/alumni/alumni.module';
+import { YearGroupsModule } from './modules/year-groups/year-groups.module';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { RolesGuard } from './modules/auth/guards/roles.guard';
 
@@ -23,6 +25,8 @@ import { RolesGuard } from './modules/auth/guards/roles.guard';
     SchoolsModule,
     UsersModule,
     AuthModule,
+    AlumniModule,
+    YearGroupsModule,
   ],
   controllers: [AppController],
   providers: [
