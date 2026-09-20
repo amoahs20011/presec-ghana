@@ -2,41 +2,34 @@ import {
   IsOptional,
   IsString,
   IsEnum,
-  IsBoolean,
   IsInt,
   IsUUID,
+  IsBoolean,
   Min,
   Max,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { EventType } from '../event.entity';
+import {
+  ProjectStatus,
+  ProjectCategory,
+} from '../project.entity';
 
-export enum EventTimeFilter {
-  UPCOMING = 'upcoming',
-  PAST = 'past',
-  ALL = 'all',
-}
-
-export class SearchEventsDto {
+export class SearchProjectsDto {
   @IsOptional()
   @IsString()
   q?: string;
 
   @IsOptional()
-  @IsEnum(EventType)
-  eventType?: EventType;
+  @IsEnum(ProjectStatus)
+  status?: ProjectStatus;
+
+  @IsOptional()
+  @IsEnum(ProjectCategory)
+  category?: ProjectCategory;
 
   @IsOptional()
   @IsUUID()
   schoolId?: string;
-
-  @IsOptional()
-  @IsUUID()
-  yearGroupId?: string;
-
-  @IsOptional()
-  @IsEnum(EventTimeFilter)
-  time?: EventTimeFilter;
 
   @IsOptional()
   @Type(() => Boolean)
