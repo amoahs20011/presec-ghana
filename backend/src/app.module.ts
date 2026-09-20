@@ -12,6 +12,9 @@ import { AlumniModule } from './modules/alumni/alumni.module';
 import { YearGroupsModule } from './modules/year-groups/year-groups.module';
 import { EventsModule } from './modules/events/events.module';
 import { ProjectsModule } from './modules/projects/projects.module';
+import { AnnouncementsModule } from './modules/announcements/announcements.module';
+import { HeritageModule } from './modules/heritage/heritage.module';
+import { GalleryModule } from './modules/gallery/gallery.module';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { RolesGuard } from './modules/auth/guards/roles.guard';
 
@@ -31,6 +34,9 @@ import { RolesGuard } from './modules/auth/guards/roles.guard';
     YearGroupsModule,
     EventsModule,
     ProjectsModule,
+    AnnouncementsModule,
+    HeritageModule,
+    GalleryModule,
   ],
   controllers: [AppController],
   providers: [
