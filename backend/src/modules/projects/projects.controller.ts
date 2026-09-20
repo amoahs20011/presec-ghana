@@ -33,6 +33,38 @@ export class ProjectsController {
     return this.projectsService.search(dto);
   }
 
+  // NOTE: /me/contributions MUST come before /:id routes
+  // or else NestJS treats "me" as a UUID
+
+  // ==================== AUTHENTICATED (specific routes first) ====================
+
+  @Get('me/contributions')
+  async myContributions(@CurrentUser() user: AuthUser) {
+    return this.projectsService.myContributions(user.id);
+  }
+
+  // ==================== ADMIN (specific routes) ====================
+
+  @Roles(UserRole.SUPER_ADMIN, UserRole.ALUMNI_ADMIN, UserRole.SCHOOL_ADMIN)
+  @Post()
+  async create(
+    @Body() dto: CreateProjectDto,
+    @CurrentUser() user: AuthUser,
+  ) {
+    return this.projectsService.create(dto, user.id);
+  }
+
+  @Roles(UserRole.SUPER_ADMIN, UserRole.ALUMNI_ADMIN, UserRole.SCHOOL_ADMIN)
+  @Patch('contributions/:id/confirm')
+  async confirmContribution(
+    @Param('id') id: string,
+    @CurrentUser() user: AuthUser,
+  ) {
+    return this.projectsService.confirmContribution(id, user.id);
+  }
+
+  // ==================== DYNAMIC :id ROUTES (must come last) ====================
+
   @Public()
   @Get(':id')
   async findOne(@Param('id') id: string) {
@@ -51,8 +83,6 @@ export class ProjectsController {
     return this.projectsService.listUpdates(id);
   }
 
-  // ==================== AUTHENTICATED ====================
-
   @Post(':id/contribute')
   async contribute(
     @Param('id') projectId: string,
@@ -60,22 +90,6 @@ export class ProjectsController {
     @Body() dto: CreateContributionDto,
   ) {
     return this.projectsService.contribute(projectId, user.id, dto);
-  }
-
-  @Get('me/contributions')
-  async myContributions(@CurrentUser() user: AuthUser) {
-    return this.projectsService.myContributions(user.id);
-  }
-
-  // ==================== ADMIN ====================
-
-  @Roles(UserRole.SUPER_ADMIN, UserRole.ALUMNI_ADMIN, UserRole.SCHOOL_ADMIN)
-  @Post()
-  async create(
-    @Body() dto: CreateProjectDto,
-    @CurrentUser() user: AuthUser,
-  ) {
-    return this.projectsService.create(dto, user.id);
   }
 
   @Roles(UserRole.SUPER_ADMIN, UserRole.ALUMNI_ADMIN, UserRole.SCHOOL_ADMIN)
@@ -88,15 +102,6 @@ export class ProjectsController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return this.projectsService.remove(id);
-  }
-
-  @Roles(UserRole.SUPER_ADMIN, UserRole.ALUMNI_ADMIN, UserRole.SCHOOL_ADMIN)
-  @Patch('contributions/:id/confirm')
-  async confirmContribution(
-    @Param('id') id: string,
-    @CurrentUser() user: AuthUser,
-  ) {
-    return this.projectsService.confirmContribution(id, user.id);
   }
 
   @Roles(UserRole.SUPER_ADMIN, UserRole.ALUMNI_ADMIN, UserRole.SCHOOL_ADMIN)
