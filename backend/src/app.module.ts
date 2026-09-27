@@ -20,6 +20,7 @@ import { MentorshipModule } from './modules/mentorship/mentorship.module';
 import { BusinessesModule } from './modules/businesses/businesses.module';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { RolesGuard } from './modules/auth/guards/roles.guard';
+import { UploadsModule } from './modules/uploads/uploads.module';
 
 @Module({
   imports: [
