@@ -23,7 +23,7 @@ import { RolesGuard } from './modules/auth/guards/roles.guard';
 import { UploadsModule } from './modules/uploads/uploads.module';
 
 @Module({
-  imports: [
+    imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
@@ -44,6 +44,7 @@ import { UploadsModule } from './modules/uploads/uploads.module';
     OpportunitiesModule,
     MentorshipModule,
     BusinessesModule,
+    UploadsModule,
   ],
   controllers: [AppController],
   providers: [
