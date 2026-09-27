@@ -1,0 +1,459 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+                          PRESEC GHANA
+
+              One Community. Many Generations. One Future.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+                 UI/UX AND BRANDING DESIGN
+                          Version 1.0
+
+                       September 2026
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[PAGE BREAK]
+
+TABLE OF CONTENTS
+
+1.  Brand Identity .............................................. 3
+2.  Color Palette ............................................... 4
+3.  Typography .................................................. 5
+4.  Spacing and Layout .......................................... 6
+5.  Screen Inventory ............................................ 7
+6.  Navigation Structure ........................................ 12
+7.  User Flows .................................................. 14
+8.  Component Library ........................................... 17
+9.  Responsive Design ........................................... 19
+10. Accessibility Guidelines .................................... 20
+11. Design Principles ........................................... 21
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. BRAND IDENTITY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1.1  LOGO
+
+     The official PRESEC logo will be used as primary branding:
+
+     ┌──────────────────────────────┐
+     │                              │
+     │        PRESEC                │
+     │                              │
+     │        N                     │
+     │                              │
+     │        LUMINE                │
+     │                              │
+     │        TWO                   │
+     │                              │
+     └──────────────────────────────┘
+
+     Where the logo appears:
+       •  Website header (all pages)
+       •  Mobile app splash screen and header
+       •  Email templates
+       •  Documents and reports
+       •  Event materials and tickets
+       •  Merchandise
+
+1.2  BRAND VOICE
+
+     •  Warm and welcoming — like a family reunion
+     •  Proud and dignified — honoring heritage
+     •  Professional and trustworthy — for jobs and donations
+     •  Forward-looking — building the future
+
+1.3  TAGLINE
+
+     One Community. Many Generations. One Future.
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. COLOR PALETTE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Primary Colors:
+
+┌──────────────────┬───────────┬────────────────────────────────────────┐
+│ COLOR            │ HEX       │ USAGE                                  │
+├──────────────────┼───────────┼────────────────────────────────────────┤
+│ Primary Blue     │ #1B3A6B   │ Headers, primary buttons, links        │
+│ Secondary Gold   │ #C9A227   │ Accents, highlights, badges            │
+└──────────────────┴───────────┴────────────────────────────────────────┘
+
+Neutral Colors:
+
+┌──────────────────┬───────────┬────────────────────────────────────────┐
+│ White            │ #FFFFFF   │ Backgrounds                            │
+│ Light Gray       │ #F5F5F5   │ Section backgrounds                    │
+│ Medium Gray      │ #CCCCCC   │ Borders and dividers                   │
+│ Dark Gray        │ #333333   │ Body text                              │
+│ Black            │ #000000   │ Headings and emphasis                  │
+└──────────────────┴───────────┴────────────────────────────────────────┘
+
+Status Colors:
+
+┌──────────────────┬───────────┬────────────────────────────────────────┐
+│ Success          │ #28A745   │ Success messages, verified status      │
+│ Warning          │ #FFC107   │ Warnings, pending status               │
+│ Error            │ #DC3545   │ Errors, rejected status                │
+│ Info             │ #17A2B8   │ Informational messages                 │
+└──────────────────┴───────────┴────────────────────────────────────────┘
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. TYPOGRAPHY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Primary Font: Inter (available on Google Fonts)
+
+┌──────────────────┬──────────┬────────┬──────────────────────────────┐
+│ ELEMENT          │ WEIGHT   │ SIZE   │ USAGE                        │
+├──────────────────┼──────────┼────────┼──────────────────────────────┤
+│ H1               │ 700      │ 48px   │ Page titles                  │
+│ H2               │ 700      │ 36px   │ Section titles               │
+│ H3               │ 600      │ 28px   │ Subsection titles            │
+│ H4               │ 600      │ 22px   │ Card titles                  │
+│ H5               │ 600      │ 18px   │ Small titles                 │
+│ Body Large       │ 400      │ 18px   │ Featured text                │
+│ Body             │ 400      │ 16px   │ Standard body text           │
+│ Body Small       │ 400      │ 14px   │ Captions, meta info          │
+│ Caption          │ 400      │ 12px   │ Timestamps, footnotes        │
+└──────────────────┴──────────┴────────┴──────────────────────────────┘
+
+Fallback fonts: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. SPACING AND LAYOUT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Base unit: 4px
+
+Spacing scale:
+
+     4px   — Extra small (icon gaps)
+     8px   — Small (inline spacing)
+     16px  — Medium (element spacing)
+     24px  — Large (section spacing)
+     32px  — Extra large (major sections)
+     48px  — 2XL (page sections)
+     64px  — 3XL (hero sections)
+
+Container width:
+
+     Mobile:  100% (with 16px padding)
+     Tablet:  max-width: 768px
+     Desktop: max-width: 1200px
+     Wide:    max-width: 1440px
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. SCREEN INVENTORY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5.1  PUBLIC WEBSITE (25 screens)
+
+┌────┬──────────────────────────┬─────────────────────────────────────┐
+│ #  │ SCREEN                   │ PURPOSE                              │
+├────┼──────────────────────────┼─────────────────────────────────────┤
+│ 1  │ Home                     │ Landing page with highlights        │
+│ 2  │ About PRESEC             │ Mission, vision, values             │
+│ 3  │ History                  │ Timeline and heritage               │
+│ 4  │ Schools Directory        │ All PRESEC branches                 │
+│ 5  │ School Detail            │ Individual school page              │
+│ 6  │ Leadership               │ Headmasters, executives             │
+│ 7  │ Alumni Directory         │ Searchable alumni list              │
+│ 8  │ Alumni Profile           │ Individual alumni page              │
+│ 9  │ Year Groups              │ All year groups                     │
+│ 10 │ Year Group Detail        │ Specific year group                 │
+│ 11 │ Programmes               │ Academic programs                   │
+│ 12 │ Achievements             │ Awards and recognition              │
+│ 13 │ News                     │ News articles                       │
+│ 14 │ News Detail              │ Single article                      │
+│ 15 │ Events                   │ Upcoming events                     │
+│ 16 │ Event Detail             │ Single event                        │
+│ 17 │ Gallery                  │ Photo galleries                     │
+│ 18 │ Heritage                 │ Digital museum                      │
+│ 19 │ Jobs                     │ Job listings                        │
+│ 20 │ Opportunities            │ Scholarships, internships           │
+│ 21 │ Mentorship               │ Mentorship program                  │
+│ 22 │ Business Directory       │ Alumni businesses                   │
+│ 23 │ Projects                 │ Development projects                │
+│ 24 │ Donate                   │ Donation page                       │
+│ 25 │ Contact                  │ Contact form                        │
+└────┴──────────────────────────┴─────────────────────────────────────┘
+
+5.2  AUTH PAGES (3 screens)
+
+┌────┬──────────────────────────┬─────────────────────────────────────┐
+│ 1  │ Login                    │ Sign in                             │
+│ 2  │ Register                 │ Create account                      │
+│ 3  │ Forgot Password          │ Password reset                      │
+└────┴──────────────────────────┴─────────────────────────────────────┘
+
+5.3  ALUMNI PORTAL (12 screens)
+
+┌────┬──────────────────────────┬─────────────────────────────────────┐
+│ 1  │ Dashboard                │ Overview of activity                │
+│ 2  │ My Profile               │ Edit profile                        │
+│ 3  │ My Year Group            │ Year group dashboard                │
+│ 4  │ Messages                 │ Direct messaging                    │
+│ 5  │ Connections              │ Network management                  │
+│ 6  │ My Events                │ Registered events                   │
+│ 7  │ My Applications          │ Job applications                    │
+│ 8  │ My Mentorship            │ Mentor/mentee management            │
+│ 9  │ My Contributions         │ Donation history                    │
+│ 10 │ Notifications            │ Notification center                 │
+│ 11 │ Settings                 │ Account settings                    │
+│ 12 │ Privacy                  │ Privacy controls                    │
+└────┴──────────────────────────┴─────────────────────────────────────┘
+
+5.4  ADMIN PORTAL (12 screens)
+
+┌────┬──────────────────────────┬─────────────────────────────────────┐
+│ 1  │ Admin Dashboard          │ Platform overview                   │
+│ 2  │ User Management          │ Manage all users                    │
+│ 3  │ Alumni Verification      │ Verify alumni                       │
+│ 4  │ School Management        │ Manage schools                      │
+│ 5  │ Year Group Management    │ Manage year groups                  │
+│ 6  │ Event Management         │ Create/manage events                │
+│ 7  │ Opportunity Management   │ Manage jobs/scholarships            │
+│ 8  │ Project Management       │ Development projects                │
+│ 9  │ Content Moderation       │ Review content                      │
+│ 10 │ Announcements            │ Publish announcements               │
+│ 11 │ Reports                  │ Analytics and reports               │
+│ 12 │ Platform Settings        │ Global settings                     │
+└────┴──────────────────────────┴─────────────────────────────────────┘
+
+5.5  MOBILE APP (10+ screens)
+
+┌────┬──────────────────────────┬─────────────────────────────────────┐
+│ 1  │ Home                     │ Mobile landing                      │
+│ 2  │ Directory                │ Alumni search                       │
+│ 3  │ Events                   │ Event listings                      │
+│ 4  │ Profile                  │ User profile                        │
+│ 5  │ Notifications            │ Push notifications                  │
+│ 6  │ Messages                 │ Chat                                │
+│ 7  │ Opportunities            │ Jobs/scholarships                   │
+│ 8  │ Donate                   │ Quick donate                        │
+│ 9  │ Gallery                  │ Photo gallery                       │
+│ 10 │ Settings                 │ App settings                        │
+└────┴──────────────────────────┴─────────────────────────────────────┘
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. NAVIGATION STRUCTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+6.1  MAIN NAVIGATION (Public)
+
+     Home | About | Schools | Alumni | Events | Opportunities
+     | Heritage | News | Contact
+
+     Right side:  [Login]  [Register]  [Donate]
+
+6.2  USER DASHBOARD NAVIGATION
+
+     Dashboard | Profile | Year Group | Events
+     | Opportunities | Mentorship | Messages | Settings
+
+6.3  ADMIN NAVIGATION
+
+     Dashboard | Users | Schools | Alumni | Events
+     | Opportunities | Projects | Content | Reports | Settings
+
+6.4  FOOTER NAVIGATION
+
+     Column 1: About PRESEC
+     Column 2: Community
+     Column 3: Resources
+     Column 4: Support
+     Column 5: Social Media Links
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. USER FLOWS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.1  REGISTRATION AND VERIFICATION FLOW
+
+     ┌─────────────┐
+     │   Visit     │
+     │   Website   │
+     └──────┬──────┘
+            │
+            ▼
+     ┌─────────────┐
+     │  Register   │
+     └──────┬──────┘
+            │
+            ▼
+     ┌─────────────┐
+     │  Verify     │
+     │  Email/OTP  │
+     └──────┬──────┘
+            │
+            ▼
+     ┌─────────────┐
+     │  Complete   │
+     │  Profile    │
+     └──────┬──────┘
+            │
+            ▼
+     ┌─────────────┐
+     │  Submit     │
+     │  Alumni     │
+     │  Verification│
+     └──────┬──────┘
+            │
+       ┌────┴────┐
+       │         │
+       ▼         ▼
+   ┌───────┐ ┌────────┐
+   │Verified│ │Rejected│
+   └───────┘ └────────┘
+
+7.2  EVENT REGISTRATION FLOW
+
+     Browse Events → View Details → Click Register
+     → Fill Form → Pay (if required) → Receive QR Ticket
+     → Check-in at Event
+
+7.3  DONATION FLOW
+
+     Browse Projects → View Progress → Click Donate
+     → Enter Amount → Choose Payment Method
+     → Complete Payment → Receive Receipt
+     → See Updated Progress
+
+7.4  MENTORSHIP FLOW
+
+     Alumni registers as Mentor → Student/Alumni browses
+     offers → Sends Request → Mentor accepts/rejects
+     → Mentorship begins
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+8. COMPONENT LIBRARY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+8.1  BUTTONS
+
+     Primary:   Solid blue background, white text
+     Secondary: Outlined blue border, blue text
+     Ghost:     No background, blue text
+     Danger:    Red background, white text
+     Sizes:     Small, Medium, Large
+
+8.2  FORMS
+
+     Text input       — label, placeholder, validation
+     Dropdown         — searchable options
+     Date picker      — calendar popup
+     File upload      — drag-and-drop area
+     Checkbox         — multi-select
+     Radio            — single-select
+     Textarea         — multi-line input
+
+8.3  CARDS
+
+     Profile card    — photo, name, year group
+     Event card      — date, title, location
+     Project card    — progress bar, target
+     News card       — headline, date, image
+     Business card   — logo, industry, location
+
+8.4  NAVIGATION
+
+     Header         — logo, links, user menu
+     Breadcrumbs    — page hierarchy
+     Pagination     — page numbers
+     Tabs           — switch content
+     Sidebar        — dashboard nav
+
+8.5  FEEDBACK
+
+     Toast          — temporary notification
+     Modal          — dialog box
+     Loading        — spinner or skeleton
+     Empty state    — no-data message
+     Error state    — error message with retry
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+9. RESPONSIVE DESIGN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌──────────────────┬─────────────────┬──────────────────────────────────┐
+│ DEVICE           │ BREAKPOINT      │ LAYOUT                           │
+├──────────────────┼─────────────────┼──────────────────────────────────┤
+│ Mobile           │ < 640px         │ Single column, stacked nav       │
+│ Tablet           │ 640px – 1024px  │ Two columns, collapsed nav       │
+│ Desktop          │ > 1024px        │ Multi-column, full nav           │
+│ Wide             │ > 1440px        │ Max-width container, more spacing │
+└──────────────────┴─────────────────┴──────────────────────────────────┘
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+10. ACCESSIBILITY GUIDELINES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+     •  WCAG 2.1 AA compliance
+     •  Minimum contrast ratio: 4.5:1 for text
+     •  Keyboard navigation support
+     •  Screen reader compatibility
+     •  Alt text for all images
+     •  Focus indicators on all interactive elements
+     •  Proper heading hierarchy (H1 → H2 → H3)
+     •  Form labels associated with inputs
+     •  Error messages linked to fields
+     •  Skip-to-content links
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+11. DESIGN PRINCIPLES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+     1.  Heritage First
+         Every design decision should honor the PRESEC legacy.
+
+     2.  Community Focused
+         Features should strengthen bonds between members.
+
+     3.  Opportunity Driven
+         Every screen should open doors for someone.
+
+     4.  Transparent
+         Progress, funds, and data should be clearly visible.
+
+     5.  Accessible
+         Designed for all users, regardless of ability or device.
+
+     6.  Mobile Friendly
+         Ghana-first means mobile-first.
+
+     7.  Fast
+         Optimized for low-bandwidth connections.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+END OF DOCUMENT
+
+PRESEC GHANA — UI/UX and Branding Design v1.0
+September 2026
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

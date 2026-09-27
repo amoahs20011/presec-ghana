@@ -54,6 +54,26 @@ export class User {
   })
   role: UserRole;
 
+  // NEW: detailed user type
+  @Column({ name: 'user_type', type: 'varchar', length: 50, nullable: true })
+  userType: string | null;
+
+  // NEW: school affiliation (for teachers/staff)
+  @Column({ name: 'school_id', type: 'uuid', nullable: true })
+  schoolId: string | null;
+
+  // NEW: position (e.g. "Headmaster", "Senior Teacher")
+  @Column({ name: 'current_position', type: 'varchar', length: 100, nullable: true })
+  currentPosition: string | null;
+
+  // NEW: department
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  department: string | null;
+
+  // NEW: short bio
+  @Column({ name: 'bio_short', type: 'text', nullable: true })
+  bioShort: string | null;
+
   @Column({ name: 'is_active', type: 'boolean', default: true })
   isActive: boolean;
 

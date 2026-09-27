@@ -27,4 +27,14 @@ export class UsersService {
     await this.userRepository.update(id, data);
     return this.findById(id);
   }
+
+  async getUserTypes(): Promise<
+    { code: string; label: string; category: string; description: string }[]
+  > {
+    return this.userRepository.query(
+      `SELECT code, label, category, description
+       FROM user_types
+       ORDER BY sort_order ASC`,
+    );
+  }
 }

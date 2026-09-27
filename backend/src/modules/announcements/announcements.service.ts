@@ -47,21 +47,28 @@ export class AnnouncementsService {
   }
 
   async search(dto: SearchAnnouncementsDto) {
-    const where: any = { isPublic: true };
-
-    if (dto.type) where.type = dto.type;
-    if (dto.schoolId) where.schoolId = dto.schoolId;
-    if (dto.isPublic !== undefined) where.isPublic = dto.isPublic;
-    if (dto.isPinned !== undefined) where.isPinned = dto.isPinned;
-
     const qb = this.repo
       .createQueryBuilder('a')
-      .leftJoinAndSelect('a.school', 'school')
-      .leftJoinAndSelect('a.publisher', 'publisher')
-      .where(where);
+      .leftJoinAndSelect('a.school', 'school');
+
+    if (dto.isPublic !== undefined) {
+      qb.andWhere('a.isPublic = :isPublic', { isPublic: dto.isPublic });
+    } else {
+      qb.andWhere('a.isPublic = :isPublic', { isPublic: true });
+    }
+
+    if (dto.type) {
+      qb.andWhere('a.type = :type', { type: dto.type });
+    }
+    if (dto.schoolId) {
+      qb.andWhere('a.schoolId = :schoolId', { schoolId: dto.schoolId });
+    }
+    if (dto.isPinned !== undefined) {
+      qb.andWhere('a.isPinned = :isPinned', { isPinned: dto.isPinned });
+    }
 
     if (dto.q) {
-      qb.andWhere(`(a.title ILIKE :q OR a.content ILIKE :q)`, {
+      qb.andWhere('(a.title ILIKE :q OR a.content ILIKE :q)', {
         q: `%${dto.q}%`,
       });
     }
@@ -87,8 +94,6 @@ export class AnnouncementsService {
   }
 
   private sanitize(a: Announcement) {
-    const safe: any = { ...a };
-    if (safe.publisher) delete safe.publisher.passwordHash;
-    return safe;
+    return { ...a };
   }
 }

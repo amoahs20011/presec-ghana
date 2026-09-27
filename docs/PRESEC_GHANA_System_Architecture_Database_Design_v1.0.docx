@@ -1,0 +1,334 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+                          PRESEC GHANA
+
+              One Community. Many Generations. One Future.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+              SYSTEM ARCHITECTURE & DATABASE DESIGN
+                          Version 1.0
+
+                       September 2026
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[PAGE BREAK]
+
+TABLE OF CONTENTS
+
+1.  Architecture Overview ....................................... 3
+2.  Technology Stack ............................................ 4
+3.  System Layers ............................................... 5
+4.  Database Schema ............................................. 6
+5.  Entity Relationships ........................................ 12
+6.  API Structure ............................................... 13
+7.  Authentication & Authorization .............................. 14
+8.  Security Considerations ..................................... 15
+9.  Scalability Plan ............................................ 16
+10. Deployment Architecture ..................................... 17
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. ARCHITECTURE OVERVIEW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PRESEC GHANA uses a modern three-tier architecture:
+
+    ┌──────────────────────────────────────────────────────────┐
+    │                    CLIENT LAYER                          │
+    │  ┌────────────┐  ┌────────────┐  ┌────────────────────┐ │
+    │  │  Website   │  │ Mobile App │  │   Admin Portal     │ │
+    │  │ (Next.js)  │  │ (Flutter)  │  │   (Next.js)        │ │
+    │  └────────────┘  └────────────┘  └────────────────────┘ │
+    └──────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────┐
+    │                  APPLICATION LAYER                       │
+    │              NestJS REST API (Node.js)                   │
+    │  ┌─────────┬─────────┬─────────┬─────────┬─────────┐    │
+    │  │  Auth   │ Users   │ Alumni  │ Events  │ etc...  │    │
+    │  └─────────┴─────────┴─────────┴─────────┴─────────┘    │
+    └──────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────┐
+    │                     DATA LAYER                           │
+    │   ┌──────────────┐  ┌──────────────┐  ┌─────────────┐  │
+    │   │ PostgreSQL   │  │   Storage    │  │Notifications│  │
+    │   │  Database    │  │  (Cloudinary)│  │ (Firebase)  │  │
+    │   └──────────────┘  └──────────────┘  └─────────────┘  │
+    └──────────────────────────────────────────────────────────┘
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. TECHNOLOGY STACK
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌────────────────────┬──────────────────────────────────────────────────┐
+│ LAYER              │ TECHNOLOGY                                       │
+├────────────────────┼──────────────────────────────────────────────────┤
+│ Frontend (Web)     │ Next.js 16, TypeScript, Tailwind CSS             │
+│ Backend            │ NestJS 12, Node.js 24                            │
+│ Database           │ PostgreSQL 18                                    │
+│ ORM                │ TypeORM                                          │
+│ Authentication     │ JWT, Passport.js                                 │
+│ Password Hashing   │ bcrypt                                           │
+│ API Documentation  │ Swagger / OpenAPI                                │
+│ Mobile             │ Flutter (Phase 8)                                │
+│ File Storage       │ Cloudinary / Firebase Storage                    │
+│ Notifications      │ Firebase Cloud Messaging                         │
+│ Payments           │ Mobile Money, Paystack                           │
+│ Hosting            │ TBD (cloud or self-hosted)                       │
+│ Version Control    │ Git + GitHub                                     │
+│ CI/CD              │ GitHub Actions (planned)                         │
+└────────────────────┴──────────────────────────────────────────────────┘
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. SYSTEM LAYERS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.1  PRESENTATION LAYER
+
+     •  Public Website — accessible to everyone
+     •  Alumni Portal — authenticated users
+     •  Admin Dashboard — administrative users
+     •  Mobile App — Android/iOS (Phase 8)
+
+3.2  APPLICATION LAYER
+
+     •  REST API with versioned endpoints (/api/v1/)
+     •  Modular NestJS architecture
+     •  JWT-based authentication
+     •  Role-based access control
+     •  Request validation and sanitization
+     •  Error handling and logging
+
+3.3  DATA LAYER
+
+     •  PostgreSQL relational database
+     •  TypeORM for object-relational mapping
+     •  Migrations for schema versioning
+     •  Indexes for performance
+     •  Foreign key constraints for integrity
+
+3.4  INFRASTRUCTURE LAYER
+
+     •  Cloud storage for media files
+     •  Notification service
+     •  Payment gateway integration
+     •  Email service (planned)
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. DATABASE SCHEMA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+4.1  GEOGRAPHIC HIERARCHY
+
+     regions (16 Ghana regions)
+         │
+         └──► districts (many per region)
+                 │
+                 └──► schools (many per district)
+                         │
+                         └──► year_groups (many per school)
+                                 │
+                                 └──► year_group_members
+
+4.2  USER HIERARCHY
+
+     users (base authentication table)
+         │
+         ├──► alumni_profiles (for alumni)
+         ├──► staff_profiles (for teachers/staff)
+         └──► role field: student | alumni | teacher | admin | super_admin
+
+4.3  OPPORTUNITY SYSTEM
+
+     opportunities (jobs, scholarships, internships, training)
+         │
+         └──► opportunity_applications
+
+4.4  EVENT SYSTEM
+
+     events (reunions, homecomings, gatherings)
+         │
+         └──► event_registrations (with QR tickets)
+
+4.5  DEVELOPMENT SYSTEM
+
+     projects (school development projects)
+         │
+         ├──► contributions (donations)
+         └──► project_updates (progress tracking)
+
+4.6  HERITAGE SYSTEM
+
+     heritage_items (photos, documents, artifacts)
+     achievements (academic, sports, alumni)
+
+4.7  MENTORSHIP SYSTEM
+
+     mentorship_offers (mentors)
+         │
+         └──► mentorship_requests (mentee requests)
+
+4.8  OTHER SYSTEMS
+
+     •  announcements (news and notices)
+     •  businesses (alumni business directory)
+     •  gallery_albums / gallery_photos (photo galleries)
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. ENTITY RELATIONSHIPS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Key Relationships:
+
+     users (1) ──────► (1) alumni_profiles
+     users (1) ──────► (1) staff_profiles
+     users (1) ──────► (many) events [as creator]
+     users (1) ──────► (many) contributions
+     users (1) ──────► (many) businesses [as owner]
+
+     regions (1) ────► (many) districts
+     districts (1) ──► (many) schools
+     schools (1) ────► (many) year_groups
+     schools (1) ────► (many) alumni_profiles
+     schools (1) ────► (many) projects
+
+     year_groups (1) ► (many) year_group_members
+     year_groups (1) ► (many) events
+
+     events (1) ─────► (many) event_registrations
+     opportunities (1)► (many) opportunity_applications
+     projects (1) ───► (many) contributions
+     projects (1) ───► (many) project_updates
+
+     mentorship_offers (1) ► (many) mentorship_requests
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. API STRUCTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Base URL: http://localhost:3000/api/v1
+
+Module Endpoints:
+
+     /auth                    → register, login, me
+     /schools                 → list, get by ID
+     /alumni                  → search, me, verify
+     /events                  → CRUD, register, check-in
+     /projects                → CRUD, contribute, updates
+     /announcements           → CRUD
+     /heritage                → CRUD, achievements
+     /gallery                 → albums, photos
+     /opportunities           → CRUD, apply, applications
+     /mentorship              → offers, requests
+     /businesses              → CRUD, verify
+
+Total endpoints: 60+
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. AUTHENTICATION & AUTHORIZATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.1  AUTHENTICATION
+
+     •  Users register with email + password
+     •  Password hashed with bcrypt (10+ rounds)
+     •  Login returns JWT access token (7-day expiry)
+     •  Token contains user ID, email, and role
+     •  Token sent in Authorization: Bearer <token> header
+
+7.2  AUTHORIZATION
+
+     Role-Based Access Control (RBAC):
+
+     ┌─────────────────┬────────────────────────────────────────────┐
+     │ ROLE            │ PERMISSIONS                                │
+     ├─────────────────┼────────────────────────────────────────────┤
+     │ student         │ View opportunities, mentorship, events     │
+     │ alumni          │ Above + alumni directory, jobs, events     │
+     │ teacher         │ Above + school-specific features           │
+     │ admin           │ Above + manage school content              │
+     │ super_admin     │ Full platform access                       │
+     └─────────────────┴────────────────────────────────────────────┘
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+8. SECURITY CONSIDERATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+     •  Passwords hashed with bcrypt
+     •  JWT tokens with expiration
+     •  HTTPS in production
+     •  Environment variables for secrets
+     •  Input validation on all endpoints
+     •  SQL injection prevention via TypeORM
+     •  Rate limiting (planned)
+     •  CORS configured for allowed origins only
+     •  File upload restrictions (size, type)
+     •  Audit logging for admin actions
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+9. SCALABILITY PLAN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Phase 1 (Current): Single server, single database
+Phase 2: Add CDN for static assets
+Phase 3: Add caching layer (Redis)
+Phase 4: Add read replicas for database
+Phase 5: Load balancing across multiple API servers
+Phase 6: Microservices for high-traffic modules
+
+[PAGE BREAK]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+10. DEPLOYMENT ARCHITECTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Development (current):
+
+     Localhost:3000 (Backend)
+     Localhost:3001 (Frontend)
+     Localhost:5432 (PostgreSQL)
+
+Production (planned):
+
+     GitHub → CI/CD → Cloud Server
+     ┌─────────────────────────────────────────────┐
+     │  Nginx Reverse Proxy + SSL (Let's Encrypt) │
+     └─────────────────────────────────────────────┘
+                          │
+         ┌────────────────┼────────────────┐
+         ▼                ▼                ▼
+     Next.js          NestJS API      Static Media
+     (Port 3001)      (Port 3000)     (Cloudinary)
+
+Database: Managed PostgreSQL (with backups)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+END OF DOCUMENT
+
+PRESEC GHANA — System Architecture & Database Design v1.0
+September 2026
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
