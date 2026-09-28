@@ -72,8 +72,8 @@ export function Header() {
     <header
       className={`sticky top-0 z-40 transition-all duration-300 ${
         scrolled
-          ? 'glass border-b border-border shadow-sm'
-          : 'bg-surface/80 backdrop-blur-md border-b border-transparent'
+          ? 'bg-slate-900/90 backdrop-blur-xl border-b border-slate-700 shadow-lg shadow-black/20'
+          : 'bg-slate-900/70 backdrop-blur-md border-b border-transparent'
       }`}
     >
       <div className="container">
@@ -85,7 +85,7 @@ export function Header() {
               <span className="font-display font-extrabold text-lg gradient-text-neon">
                 PRESEC
               </span>
-              <span className="text-2xs font-medium text-text-muted tracking-widest">
+              <span className="text-2xs font-medium text-gold tracking-widest">
                 GHANA
               </span>
             </div>
@@ -105,7 +105,7 @@ export function Header() {
                   className={`relative px-3 py-2 rounded-md text-sm font-semibold transition-all duration-200 ${
                     active
                       ? 'text-transparent bg-clip-text bg-gradient-neon'
-                      : 'text-text hover:text-brand'
+                      : 'text-slate-300 hover:text-white'
                   }`}
                 >
                   {item.label}
