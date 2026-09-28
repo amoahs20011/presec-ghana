@@ -120,7 +120,7 @@ export default function ProfilePage() {
 
   if (!mounted || authLoading || loading) {
     return (
-      <div className="container py-20 text-center text-presec-text-muted">
+      <div className="container py-20 text-center text-slate-400">
         Loading...
       </div>
     );
@@ -134,7 +134,7 @@ export default function ProfilePage() {
         <div className="mb-8">
           <button
             onClick={() => router.push('/dashboard')}
-            className="text-sm text-presec-blue hover:underline"
+            className="text-sm text-white hover:underline"
           >
             ← Back to Dashboard
           </button>
@@ -161,7 +161,7 @@ export default function ProfilePage() {
           {/* PHOTO */}
           <Card>
             <CardBody>
-              <h2 className="font-bold text-presec-blue mb-4">
+              <h2 className="font-bold text-white mb-4">
                 Profile Photo
               </h2>
               <ImageUploader
@@ -178,7 +178,7 @@ export default function ProfilePage() {
           {/* BASIC */}
           <Card>
             <CardBody className="space-y-4">
-              <h2 className="font-bold text-presec-blue">
+              <h2 className="font-bold text-white">
                 School Information
               </h2>
 
@@ -217,7 +217,7 @@ export default function ProfilePage() {
           {/* PROFESSIONAL */}
           <Card>
             <CardBody className="space-y-4">
-              <h2 className="font-bold text-presec-blue">
+              <h2 className="font-bold text-white">
                 Professional Information
               </h2>
 
@@ -267,7 +267,7 @@ export default function ProfilePage() {
           {/* LOCATION */}
           <Card>
             <CardBody className="space-y-4">
-              <h2 className="font-bold text-presec-blue">Location</h2>
+              <h2 className="font-bold text-white">Location</h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -302,7 +302,7 @@ export default function ProfilePage() {
           {/* SKILLS + BIO */}
           <Card>
             <CardBody className="space-y-4">
-              <h2 className="font-bold text-presec-blue">About You</h2>
+              <h2 className="font-bold text-white">About You</h2>
 
               <div>
                 <label className="block text-sm font-semibold mb-1">
@@ -348,10 +348,10 @@ export default function ProfilePage() {
                   className="mt-1"
                 />
                 <div>
-                  <div className="font-semibold text-presec-blue">
+                  <div className="font-semibold text-white">
                     Available for Mentorship
                   </div>
-                  <div className="text-sm text-presec-text-muted mt-1">
+                  <div className="text-sm text-slate-400 mt-1">
                     Let younger alumni and current students contact you for
                     guidance.
                   </div>

@@ -12,13 +12,13 @@ interface CardProps {
 
 const variantClasses: Record<CardVariant, string> = {
   default:
-    'bg-white/80 backdrop-blur-md border border-white/40 shadow-sm',
+    'bg-slate-900/80 backdrop-blur-md border border-slate-700 shadow-sm',
   elevated:
-    'bg-white/85 backdrop-blur-md border border-white/50 shadow-md hover:shadow-xl',
+    'bg-slate-900/85 backdrop-blur-md border border-slate-700 shadow-md hover:shadow-xl hover:border-slate-600',
   outline:
-    'bg-transparent border-2 border-brand/20',
+    'bg-transparent border-2 border-slate-700',
   gradient:
-    'bg-gradient-to-br from-white/90 to-brand/5 backdrop-blur-md border border-white/40 shadow-md',
+    'bg-gradient-to-br from-slate-900 to-slate-800 backdrop-blur-md border border-slate-700 shadow-md',
 };
 
 export function Card({
@@ -57,9 +57,9 @@ export function CardHeader({
 }: CardHeaderProps) {
   return (
     <div
-      className={`flex items-center justify-between gap-3 px-5 py-4 border-b border-border ${className}`}
+      className={`flex items-center justify-between gap-3 px-5 py-4 border-b border-slate-700 ${className}`}
     >
-      <div className="font-display font-semibold text-text">
+      <div className="font-display font-semibold text-white">
         {children}
       </div>
       {action && <div>{action}</div>}
@@ -84,7 +84,7 @@ interface CardFooterProps {
 export function CardFooter({ children, className = '' }: CardFooterProps) {
   return (
     <div
-      className={`px-5 py-4 border-t border-border bg-surface-alt ${className}`}
+      className={`px-5 py-4 border-t border-slate-700 bg-slate-800/50 ${className}`}
     >
       {children}
     </div>
