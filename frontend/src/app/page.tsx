@@ -48,7 +48,7 @@ export default async function HomePage() {
   return (
     <>
       {/* ==================== HERO ==================== */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-navy text-white">
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-navy text-white dark:bg-gradient-navy">
         {/* Decorative blobs */}
         <div className="absolute top-1/4 -left-40 w-[500px] h-[500px] bg-gold/20 rounded-full blur-[120px] animate-pulse-slow" />
         <div
