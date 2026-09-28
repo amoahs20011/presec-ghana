@@ -232,7 +232,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-surface-alt dark:bg-slate-900 py-12">
+    <div className="min-h-screen bg-[#0F172A] py-12">
       <div className="container max-w-2xl">
         {/* Header */}
         <div className="text-center mb-8">
@@ -324,7 +324,7 @@ export default function RegisterPage() {
         )}
 
         {/* Card */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-border shadow-md p-6 sm:p-8 text-text">
+        <div className="bg-slate-800/60 backdrop-blur-lg border border-slate-700 rounded-2xl shadow-2xl p-6 sm:p-8">
           <form onSubmit={handleSubmit}>
             {/* STEP 1: ACCOUNT */}
             {step === 1 && (
