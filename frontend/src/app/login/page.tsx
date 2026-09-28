@@ -40,7 +40,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen grid lg:grid-cols-2">
       {/* LEFT: Hero / Branding */}
-      <div className="relative hidden lg:flex flex-col justify-between p-12 bg-gradient-navy text-white overflow-hidden">
+      <div className="relative hidden lg:flex flex-col justify-between p-12 bg-[#172554] text-white overflow-hidden">
         {/* Decorative blobs */}
         <div className="absolute top-1/4 -left-40 w-[500px] h-[500px] bg-gold/20 rounded-full blur-[120px]" />
         <div className="absolute bottom-0 -right-40 w-[500px] h-[500px] bg-brand-light/20 rounded-full blur-[120px]" />
@@ -116,7 +116,7 @@ export default function LoginPage() {
       </div>
 
       {/* RIGHT: Form */}
-      <div className="relative flex items-center justify-center p-6 sm:p-12 bg-surface-alt">
+      <div className="relative flex items-center justify-center p-6 sm:p-12 bg-white dark:bg-slate-900">
         <div className="w-full max-w-md">
           {/* Mobile logo */}
           <div className="lg:hidden mb-8 text-center">

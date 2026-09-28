@@ -48,7 +48,7 @@ export default async function HomePage() {
   return (
     <>
       {/* ==================== HERO ==================== */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-navy text-white dark:bg-gradient-navy">
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-[#172554] text-white">
         {/* Decorative blobs */}
         <div className="absolute top-1/4 -left-40 w-[500px] h-[500px] bg-gold/20 rounded-full blur-[120px] animate-pulse-slow" />
         <div
@@ -488,7 +488,7 @@ export default async function HomePage() {
       {/* ==================== CTA BANNER ==================== */}
       <section className="py-20">
         <div className="container">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-navy p-10 md:p-16 text-white">
+          <div className="relative overflow-hidden rounded-3xl bg-[#172554] p-10 md:p-16 text-white">
             {/* Decorative */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-gold/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-brand-light/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
@@ -692,7 +692,7 @@ function ProjectCard({ project }: { project: Project }) {
   return (
     <Link href={`/projects/${project.id}`} className="block group">
       <Card variant="elevated" hover className="h-full overflow-hidden">
-        <div className="relative h-40 bg-gradient-navy overflow-hidden">
+        <div className="relative h-40 bg-[#172554] overflow-hidden">
           {project.coverPhotoUrl ? (
             <img
               src={project.coverPhotoUrl}
