@@ -433,3 +433,50 @@ html:not(.dark) a[class*="gradient"]:hover {
     #FBBF24 100%
   );
 }
+
+/* ============================================
+   FORCE READABILITY — Light & Dark
+   ============================================ */
+
+/* Hero sections always dark navy with white text */
+.hero-dark {
+  background: #172554 !important;
+  color: #ffffff !important;
+}
+
+.hero-dark * {
+  color: inherit;
+}
+
+/* Force readable dark text in light mode forms */
+html:not(.dark) input,
+html:not(.dark) textarea,
+html:not(.dark) select {
+  color: #000000 !important;
+}
+
+html:not(.dark) input::placeholder,
+html:not(.dark) textarea::placeholder {
+  color: #64748B !important;
+}
+
+/* Force readable white text in dark mode forms */
+.dark input,
+.dark textarea,
+.dark select {
+  color: #ffffff !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+/* Force high-contrast labels in both modes */
+html:not(.dark) label {
+  color: #0F172A !important;
+}
+
+.dark label {
+  color: #F1F5F9 !important;
+}

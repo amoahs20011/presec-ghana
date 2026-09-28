@@ -232,7 +232,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-surface-alt py-12">
+    <div className="min-h-screen bg-surface-alt dark:bg-slate-900 py-12">
       <div className="container max-w-2xl">
         {/* Header */}
         <div className="text-center mb-8">
