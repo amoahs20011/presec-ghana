@@ -129,7 +129,7 @@ export default function ProfilePage() {
   if (!user) return null;
 
   return (
-    <section className="py-12 bg-presec-bg-alt min-h-[60vh]">
+    <section className="py-12 bg-[#0F172A] min-h-[60vh]">
       <div className="container max-w-3xl">
         <div className="mb-8">
           <button
@@ -138,10 +138,10 @@ export default function ProfilePage() {
           >
             ← Back to Dashboard
           </button>
-          <h1 className="text-3xl font-bold text-presec-blue mt-2">
+          <h1 className="text-3xl font-bold text-white mt-2">
             Edit Profile
           </h1>
-          <p className="text-sm text-presec-text-muted mt-1">
+          <p className="text-sm text-slate-400 mt-1">
             Update your alumni information. This helps classmates find you.
           </p>
         </div>

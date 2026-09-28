@@ -19,6 +19,7 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import { ButtonLink } from '@/components/ui/Button';
+import { GradientCard, GradientCardBody, GradientIcon } from '@/components/ui/GradientCard';
 import { Card, CardBody } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Logo } from '@/components/ui/Logo';
