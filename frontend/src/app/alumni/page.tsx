@@ -1,13 +1,25 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Card, CardBody } from '@/components/ui/Card';
+import Link from 'next/link';
+import {
+  Search,
+  Filter,
+  Users,
+  MapPin,
+  Briefcase,
+  GraduationCap,
+  CheckCircle2,
+  Award,
+  ArrowRight,
+  X,
+} from 'lucide-react';
+import { GradientCard, GradientCardBody } from '@/components/ui/GradientCard';
 import { Badge } from '@/components/ui/Badge';
-import { Input } from '@/components/ui/Input';
+import { Input, Select } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { api } from '@/lib/api';
 import type { Alumni, Paginated } from '@/types';
-import Link from 'next/link';
 
 const PROGRAMMES = [
   'General Arts',
@@ -28,6 +40,7 @@ export default function AlumniPage() {
   const [industry, setIndustry] = useState('');
   const [programme, setProgramme] = useState('');
   const [mentorshipOnly, setMentorshipOnly] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
 
   async function fetchAlumni() {
     setLoading(true);
@@ -38,16 +51,15 @@ export default function AlumniPage() {
       if (industry) params.set('industry', industry);
       if (programme) params.set('programme', programme);
       if (mentorshipOnly) params.set('isAvailableForMentorship', 'true');
-      params.set('limit', '24');
 
       const data = await api.get<Paginated<Alumni>>(
         `/alumni/search?${params.toString()}`,
       );
-      setAlumni(data.items);
-      setTotal(data.total);
+      setAlumni(data.items || []);
+      setTotal(data.total || 0);
     } catch (err) {
+      console.error('Failed to load alumni', err);
       setAlumni([]);
-      setTotal(0);
     } finally {
       setLoading(false);
     }
@@ -58,214 +70,311 @@ export default function AlumniPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function handleSearch(e: React.FormEvent) {
-    e.preventDefault();
-    fetchAlumni();
-  }
-
-  function handleReset() {
+  function clearFilters() {
     setQ('');
     setGraduationYear('');
     setIndustry('');
     setProgramme('');
     setMentorshipOnly(false);
-    setTimeout(fetchAlumni, 0);
+    setTimeout(fetchAlumni, 50);
   }
 
+  const hasActiveFilters =
+    q || graduationYear || industry || programme || mentorshipOnly;
+
   return (
-    <>
-      <section className="bg-presec-blue text-white py-12 lg:py-16">
-        <div className="container">
-          <Badge color="gold">Alumni Network</Badge>
-          <h1 className="mt-4 text-4xl lg:text-5xl font-bold">
-            Alumni Directory
+    <div className="min-h-screen bg-[#0F172A] relative overflow-hidden">
+      {/* Decorative blobs */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-violet-500/10 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/3 -left-40 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[150px] pointer-events-none" />
+
+      <div className="relative container py-12">
+        {/* HEADER */}
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          <Badge
+            color="gold"
+            size="lg"
+            className="mb-4 bg-gold/20 border-gold/40 text-gold-light"
+          >
+            <Users className="w-3.5 h-3.5" />
+            Alumni Network
+          </Badge>
+          <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-white mb-4">
+            Find your <span className="gradient-text-gold">classmates</span>
           </h1>
-          <p className="mt-4 text-lg text-gray-200 max-w-2xl">
-            Reconnect with classmates, discover mentors, and grow your
-            professional network. {total > 0 && `${total} verified alumni`}{' '}
-            and counting.
+          <p className="text-lg text-slate-400">
+            Reconnect with fellow PRESEC alumni across generations, industries,
+            and continents.
           </p>
         </div>
-      </section>
 
-      {/* Filters */}
-      <section className="bg-presec-bg-alt py-8 border-b border-presec-border">
-        <div className="container">
-          <form onSubmit={handleSearch} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
+        {/* SEARCH BAR */}
+        <div className="max-w-3xl mx-auto mb-6">
+          <div className="flex gap-2">
+            <div className="flex-1">
               <Input
-                placeholder="Search by name, profession..."
+                type="text"
+                placeholder="Search by name, profession, or skills..."
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && fetchAlumni()}
+                icon={<Search className="w-4 h-4" />}
+                fullWidth
               />
-              <Input
-                type="number"
-                placeholder="Graduation year"
-                value={graduationYear}
-                onChange={(e) => setGraduationYear(e.target.value)}
-                min={1950}
-                max={2100}
-              />
-              <Input
-                placeholder="Industry (e.g. Technology)"
-                value={industry}
-                onChange={(e) => setIndustry(e.target.value)}
-              />
-              <select
-                value={programme}
-                onChange={(e) => setProgramme(e.target.value)}
-                className="w-full px-3 py-2 border border-presec-border rounded-md focus:outline-none focus:ring-2 focus:ring-presec-blue"
-              >
-                <option value="">All Programmes</option>
-                {PROGRAMMES.map((p) => (
-                  <option key={p} value={p}>
-                    {p}
-                  </option>
-                ))}
-              </select>
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  id="mentorship"
-                  checked={mentorshipOnly}
-                  onChange={(e) => setMentorshipOnly(e.target.checked)}
-                  className="w-4 h-4"
-                />
-                <label htmlFor="mentorship" className="text-sm">
-                  Mentors only
-                </label>
-              </div>
             </div>
-
-            <div className="flex gap-2">
-              <Button type="submit" disabled={loading}>
-                {loading ? 'Searching...' : 'Search'}
-              </Button>
-              <Button
-                type="button"
-                variant="ghost"
-                onClick={handleReset}
-                disabled={loading}
-              >
-                Reset
-              </Button>
-            </div>
-          </form>
+            <Button
+              onClick={fetchAlumni}
+              variant="gradient"
+              icon={<Search className="w-4 h-4" />}
+            >
+              Search
+            </Button>
+            <Button
+              onClick={() => setShowFilters(!showFilters)}
+              variant="outline"
+              icon={<Filter className="w-4 h-4" />}
+            >
+              Filters
+            </Button>
+          </div>
         </div>
-      </section>
 
-      {/* Results */}
-      <section className="py-12">
-        <div className="container">
-          {loading ? (
-            <p className="text-center text-presec-text-muted py-12">
-              Loading alumni...
-            </p>
-          ) : alumni.length === 0 ? (
-            <Card>
-              <CardBody className="text-center py-12">
-                <p className="text-presec-text-muted">
-                  No verified alumni match your search.
-                </p>
-                <p className="mt-2 text-sm text-presec-text-muted">
-                  Try adjusting filters, or{' '}
-                  <Link
-                    href="/register"
-                    className="text-presec-blue hover:underline"
+        {/* FILTERS */}
+        {showFilters && (
+          <div className="max-w-3xl mx-auto mb-8">
+            <GradientCard theme="violet" hover={false}>
+              <GradientCardBody className="p-5">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <Input
+                    label="Graduation Year"
+                    type="number"
+                    placeholder="2008"
+                    value={graduationYear}
+                    onChange={(e) => setGraduationYear(e.target.value)}
+                    min="1950"
+                    max="2050"
+                    fullWidth
+                  />
+                  <Input
+                    label="Industry"
+                    type="text"
+                    placeholder="e.g. IT"
+                    value={industry}
+                    onChange={(e) => setIndustry(e.target.value)}
+                    fullWidth
+                  />
+                  <Select
+                    label="Programme"
+                    value={programme}
+                    onChange={(e) => setProgramme(e.target.value)}
+                    fullWidth
                   >
-                    invite classmates to join
-                  </Link>
-                  .
-                </p>
-              </CardBody>
-            </Card>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {alumni.map((person) => (
-                <Card key={person.id} hover>
-                  <CardBody>
-                    <div className="flex items-start gap-4">
-                      <div className="w-14 h-14 rounded-full bg-presec-blue text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
-                        {person.user?.firstName?.charAt(0)}
-                        {person.user?.lastName?.charAt(0)}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-presec-blue truncate">
-                          {person.user?.firstName} {person.user?.lastName}
-                        </h3>
-                        {person.currentProfession && (
-                          <p className="text-sm text-presec-text-muted truncate">
-                            {person.currentProfession}
-                          </p>
-                        )}
-                        {person.currentEmployer && (
-                          <p className="text-xs text-presec-text-muted truncate">
-                            at {person.currentEmployer}
-                          </p>
-                        )}
-                      </div>
-                    </div>
+                    <option value="">All programmes</option>
+                    {PROGRAMMES.map((p) => (
+                      <option key={p} value={p}>
+                        {p}
+                      </option>
+                    ))}
+                  </Select>
+                </div>
 
-                    <div className="mt-3 flex flex-wrap gap-1">
-                      {person.graduationYear && (
-                        <Badge color="blue">
-                          Class of {person.graduationYear}
-                        </Badge>
-                      )}
-                      {person.programme && (
-                        <Badge color="gray">{person.programme}</Badge>
-                      )}
-                      {person.isAvailableForMentorship && (
-                        <Badge color="green">Mentor</Badge>
-                      )}
-                    </div>
+                <div className="flex flex-wrap items-center justify-between gap-3 mt-4 pt-4 border-t border-slate-700">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={mentorshipOnly}
+                      onChange={(e) => setMentorshipOnly(e.target.checked)}
+                      className="w-4 h-4 rounded border-slate-600 bg-slate-800 text-brand"
+                    />
+                    <span className="text-sm text-slate-300">
+                      Available for mentorship only
+                    </span>
+                  </label>
 
-                    {person.locationCity && (
-                      <p className="mt-3 text-sm text-presec-text-muted">
-                        📍 {person.locationCity}
-                        {person.locationCountry &&
-                          `, ${person.locationCountry}`}
-                      </p>
+                  <div className="flex gap-2">
+                    {hasActiveFilters && (
+                      <Button
+                        onClick={clearFilters}
+                        variant="ghost"
+                        size="sm"
+                        icon={<X className="w-3.5 h-3.5" />}
+                      >
+                        Clear
+                      </Button>
                     )}
+                    <Button
+                      onClick={fetchAlumni}
+                      variant="gradient"
+                      size="sm"
+                    >
+                      Apply Filters
+                    </Button>
+                  </div>
+                </div>
+              </GradientCardBody>
+            </GradientCard>
+          </div>
+        )}
 
-                    {person.skills && person.skills.length > 0 && (
-                      <div className="mt-3">
-                        <div className="text-xs text-presec-text-muted">
-                          Skills
+        {/* RESULTS COUNT */}
+        {!loading && (
+          <div className="text-center mb-8">
+            <p className="text-sm text-slate-400">
+              <strong className="text-white">{total}</strong> alumni found
+            </p>
+          </div>
+        )}
+
+        {/* LOADING */}
+        {loading && (
+          <div className="text-center py-20">
+            <div className="spinner mx-auto mb-4" />
+            <p className="text-slate-400">Loading alumni...</p>
+          </div>
+        )}
+
+        {/* EMPTY */}
+        {!loading && alumni.length === 0 && (
+          <div className="text-center py-20">
+            <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-slate-800 flex items-center justify-center">
+              <Users className="w-10 h-10 text-slate-500" />
+            </div>
+            <h3 className="font-display font-bold text-xl text-white mb-2">
+              No alumni found
+            </h3>
+            <p className="text-slate-400 mb-6">
+              {hasActiveFilters
+                ? 'Try adjusting your filters'
+                : 'Be the first to join the community'}
+            </p>
+            {hasActiveFilters && (
+              <Button onClick={clearFilters} variant="outline">
+                Clear Filters
+              </Button>
+            )}
+          </div>
+        )}
+
+        {/* ALUMNI GRID */}
+        {!loading && alumni.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {alumni.map((person, index) => {
+              const themes = [
+                'violet',
+                'cyan',
+                'gold',
+                'emerald',
+                'sunset',
+                'ocean',
+              ] as const;
+              const theme = themes[index % themes.length];
+
+              const initials =
+                `${person.user?.firstName?.[0] || ''}${person.user?.lastName?.[0] || ''}`.toUpperCase() ||
+                '?';
+
+              const gradientMap = {
+                violet: 'from-violet-500 to-pink-500',
+                cyan: 'from-cyan-500 to-blue-500',
+                gold: 'from-amber-500 to-orange-500',
+                emerald: 'from-emerald-500 to-cyan-500',
+                sunset: 'from-orange-500 to-pink-500',
+                ocean: 'from-blue-500 to-emerald-500',
+              };
+
+              return (
+                <Link
+                  key={person.id}
+                  href={`/alumni/${person.id}`}
+                  className="block group"
+                >
+                  <GradientCard theme={theme} className="h-full">
+                    <GradientCardBody className="p-6 h-full flex flex-col">
+                      <div className="flex items-start gap-4 mb-4">
+                        <div
+                          className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${gradientMap[theme]} flex items-center justify-center text-white text-xl font-bold shrink-0 shadow-lg group-hover:scale-110 transition-transform duration-300`}
+                        >
+                          {initials}
                         </div>
-                        <div className="mt-1 flex flex-wrap gap-1">
-                          {person.skills.slice(0, 4).map((skill) => (
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-display font-bold text-lg text-white truncate">
+                            {person.user?.firstName} {person.user?.lastName}
+                          </h3>
+                          {person.graduationYear && (
+                            <div className="text-sm text-slate-400 flex items-center gap-1.5 mt-1">
+                              <GraduationCap className="w-3.5 h-3.5" />
+                              Class of {person.graduationYear}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {person.currentProfession && (
+                        <div className="text-sm text-slate-300 mb-2 flex items-start gap-2">
+                          <Briefcase className="w-4 h-4 text-slate-500 shrink-0 mt-0.5" />
+                          <span className="line-clamp-1">
+                            {person.currentProfession}
+                            {person.currentEmployer &&
+                              ` at ${person.currentEmployer}`}
+                          </span>
+                        </div>
+                      )}
+
+                      {person.locationCity && (
+                        <div className="text-sm text-slate-400 mb-3 flex items-center gap-2">
+                          <MapPin className="w-4 h-4 text-slate-500 shrink-0" />
+                          {person.locationCity}
+                          {person.locationCountry &&
+                            `, ${person.locationCountry}`}
+                        </div>
+                      )}
+
+                      {person.skills && person.skills.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 mb-4">
+                          {person.skills.slice(0, 3).map((skill) => (
                             <span
                               key={skill}
-                              className="text-xs px-2 py-0.5 bg-presec-bg-alt rounded"
+                              className="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700"
                             >
                               {skill}
                             </span>
                           ))}
-                          {person.skills.length > 4 && (
-                            <span className="text-xs px-2 py-0.5 text-presec-text-muted">
-                              +{person.skills.length - 4} more
+                          {person.skills.length > 3 && (
+                            <span className="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">
+                              +{person.skills.length - 3}
                             </span>
                           )}
                         </div>
-                      </div>
-                    )}
+                      )}
 
-                    <div className="mt-4 pt-4 border-t border-presec-border">
-                      <Link
-                        href={`/alumni/${person.id}`}
-                        className="text-sm font-semibold text-presec-blue hover:underline"
-                      >
-                        View Profile →
-                      </Link>
-                    </div>
-                  </CardBody>
-                </Card>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-    </>
+                      <div className="mt-auto flex items-center justify-between pt-4 border-t border-slate-800">
+                        <div className="flex gap-1.5">
+                          {person.verificationStatus === 'verified' && (
+                            <Badge color="green" size="sm">
+                              <CheckCircle2 className="w-3 h-3" />
+                              Verified
+                            </Badge>
+                          )}
+                          {person.isAvailableForMentorship && (
+                            <Badge color="gold" size="sm">
+                              <Award className="w-3 h-3" />
+                              Mentor
+                            </Badge>
+                          )}
+                        </div>
+                        <span className="text-xs font-semibold text-gold group-hover:gap-1.5 flex items-center gap-1 transition-all">
+                          View
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </span>
+                      </div>
+                    </GradientCardBody>
+                  </GradientCard>
+                </Link>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
