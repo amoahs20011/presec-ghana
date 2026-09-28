@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { ButtonLink } from '@/components/ui/Button';
 import { useAuth } from '@/contexts/AuthContext';
-import { useTheme } from '@/contexts/ThemeContext';
+// Theme context no longer used (dark mode forced)
 import { Logo } from '@/components/ui/Logo';
 
 const navItems = [
@@ -28,7 +28,6 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
   const { user, logout } = useAuth();
-  const { theme, toggle: toggleTheme } = useTheme();
 
   // Track scroll for glass effect
   useEffect(() => {
@@ -120,19 +119,7 @@ export function Header() {
 
           {/* RIGHT ACTIONS */}
           <div className="hidden lg:flex items-center gap-2">
-            {/* Theme toggle */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-lg text-text-secondary hover:text-brand hover:bg-brand/10 transition-colors"
-              aria-label="Toggle theme"
-              title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
-            >
-              {theme === 'dark' ? (
-                <SunIcon />
-              ) : (
-                <MoonIcon />
-              )}
-            </button>
+            {/* Dark mode is enforced — no toggle */}
 
             {user ? (
               <div className="relative" ref={userMenuRef}>
@@ -250,13 +237,7 @@ export function Header() {
               })}
 
               <div className="pt-3 mt-2 border-t border-border flex flex-col gap-2">
-                <button
-                  onClick={toggleTheme}
-                  className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-text-secondary hover:bg-surface-hover"
-                >
-                  <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
-                  {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
-                </button>
+                {/* Dark mode enforced */}
 
                 {user ? (
                   <>

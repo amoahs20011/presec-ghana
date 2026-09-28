@@ -21,16 +21,13 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('light');
   const [mounted, setMounted] = useState(false);
-
   useEffect(() => {
     setMounted(true);
-    const stored = localStorage.getItem('presec-theme') as Theme | null;
-    const prefersDark =
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initial = stored || (prefersDark ? 'dark' : 'light');
-    setThemeState(initial);
-    applyTheme(initial);
+    // Force dark mode always
+    setThemeState('dark');
+    if (typeof document !== 'undefined') {
+      document.documentElement.classList.add('dark');
+    }
   }, []);
 
   function applyTheme(t: Theme) {
@@ -38,14 +35,16 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     document.documentElement.classList.toggle('dark', t === 'dark');
   }
 
-  function setTheme(t: Theme) {
-    setThemeState(t);
-    applyTheme(t);
-    localStorage.setItem('presec-theme', t);
+  function setTheme(_t: Theme) {
+    // No-op — dark mode is enforced
+    setThemeState('dark');
+    if (typeof document !== 'undefined') {
+      document.documentElement.classList.add('dark');
+    }
   }
 
   function toggle() {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
+    // No-op — dark mode is enforced
   }
 
   return (

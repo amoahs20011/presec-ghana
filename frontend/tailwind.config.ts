@@ -58,22 +58,22 @@ const config: Config = {
         },
         // Surfaces
         surface: {
-          DEFAULT: '#FFFFFF',
-          hover: '#F1F5F9',
-          alt: '#F8FAFC',
+          DEFAULT: '#1E293B',       // was #FFFFFF — now dark slate
+          hover: '#334155',          // was #F1F5F9
+          alt: '#0F172A',            // was #F8FAFC — now darkest
           dark: '#1E293B',
           darker: '#0F172A',
         },
         border: {
-          DEFAULT: '#E5E7EB',
-          light: '#F3F4F6',
-          dark: '#334155',
+          DEFAULT: '#334155',       // was #E5E7EB
+          light: '#475569',          // was #F3F4F6
+          dark: '#1E293B',           // was #334155
         },
         text: {
-          DEFAULT: '#000000',
-          secondary: '#1F2937',
-          muted: '#4B5563',
-          invert: '#FFFFFF',
+          DEFAULT: '#F1F5F9',       // was #000000 — now light
+          secondary: '#CBD5E1',      // was #1F2937
+          muted: '#94A3B8',          // was #4B5563
+          invert: '#0F172A',         // was #FFFFFF
         },
         // Legacy aliases (so existing code keeps working)
         presec: {
@@ -83,11 +83,11 @@ const config: Config = {
           gold: '#F59E0B',
           'gold-dark': '#B45309',
           'gold-light': '#FCD34D',
-          bg: '#F8FAFC',
-          'bg-alt': '#F1F5F9',
-          border: '#E5E7EB',
-          text: '#000000',
-          'text-muted': '#4B5563',
+          bg: '#0F172A',
+          'bg-alt': '#1E293B',
+          border: '#334155',
+          text: '#F1F5F9',
+          'text-muted': '#94A3B8',
           success: '#10B981',
           error: '#EF4444',
         },
