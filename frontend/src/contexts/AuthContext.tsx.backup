@@ -1,0 +1,136 @@
+'use client';
+
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from 'react';
+import { auth as authLib, api } from '@/lib/api';
+
+interface User {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  otherNames?: string | null;
+  phone?: string | null;
+  role: string;
+  userType?: string | null;
+  schoolId?: string | null;
+  currentPosition?: string | null;
+  department?: string | null;
+  isActive: boolean;
+  isVerified: boolean;
+}
+
+interface AuthContextType {
+  user: User | null;
+  loading: boolean;
+  login: (email: string, password: string) => Promise<void>;
+    register: (data: {
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    phone?: string;
+    userType?: string;
+    schoolId?: string;
+    programme?: string;
+    graduationYear?: number;
+    currentPosition?: string;
+    department?: string;
+  }) => Promise<void>;
+  logout: () => void;
+  refreshUser: () => Promise<void>;
+}
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Load user from localStorage on mount
+    const storedUser = authLib.getUser();
+    if (storedUser && authLib.getToken()) {
+      setUser(storedUser);
+      refreshUser().catch(() => {
+        // Token invalid or expired — clear
+        authLib.clearToken();
+        setUser(null);
+      });
+    }
+    setLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  async function login(email: string, password: string) {
+    const data = await api.post<{
+      accessToken: string;
+      user: User;
+    }>('/auth/login', { email, password });
+
+    authLib.setToken(data.accessToken);
+    authLib.setUser(data.user);
+    setUser(data.user);
+  }
+
+    async function register(input: {
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    phone?: string;
+    userType?: string;
+    schoolId?: string;
+    programme?: string;
+    graduationYear?: number;
+    currentPosition?: string;
+    department?: string;
+  }) {
+    const data = await api.post<{
+      accessToken: string;
+      user: User;
+    }>('/auth/register', input);
+
+    authLib.setToken(data.accessToken);
+    authLib.setUser(data.user);
+    setUser(data.user);
+  }
+
+  function logout() {
+    authLib.clearToken();
+    setUser(null);
+  }
+
+  async function refreshUser() {
+    try {
+      const freshUser = await api.get<User>('/auth/me', true);
+      authLib.setUser(freshUser);
+      setUser(freshUser);
+    } catch (err) {
+      authLib.clearToken();
+      setUser(null);
+      throw err;
+    }
+  }
+
+  return (
+    <AuthContext.Provider
+      value={{ user, loading, login, register, logout, refreshUser }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+export function useAuth() {
+  const ctx = useContext(AuthContext);
+  if (!ctx) {
+    throw new Error('useAuth must be used within AuthProvider');
+  }
+  return ctx;
+}
