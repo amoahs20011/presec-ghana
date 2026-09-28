@@ -324,7 +324,7 @@ export default function RegisterPage() {
         )}
 
         {/* Card */}
-        <div className="bg-surface rounded-2xl border border-border shadow-md p-6 sm:p-8">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-border shadow-md p-6 sm:p-8">
           <form onSubmit={handleSubmit}>
             {/* STEP 1: ACCOUNT */}
             {step === 1 && (
