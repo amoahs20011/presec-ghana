@@ -593,37 +593,35 @@ function FeatureCard({
   href: string;
   gradient: 'blue' | 'gold' | 'green' | 'red' | 'purple' | 'sky';
 }) {
-  const gradientMap = {
-    blue: 'from-brand to-brand-light',
-    gold: 'from-gold to-gold-light',
-    green: 'from-success to-emerald-400',
-    red: 'from-error to-rose-400',
-    purple: 'from-purple-500 to-purple-400',
-    sky: 'from-info to-sky-400',
+  const themeMap: Record<string, 'violet' | 'cyan' | 'gold' | 'emerald' | 'sunset' | 'ocean'> = {
+    blue: 'cyan',
+    gold: 'gold',
+    green: 'emerald',
+    red: 'sunset',
+    purple: 'violet',
+    sky: 'ocean',
   };
 
+  const theme = themeMap[gradient] || 'violet';
+
   return (
-    <Link href={href} className="group block h-full">
-      <Card hover className="card-gradient-border h-full">
-        <CardBody className="p-6">
-          <div
-            className={`w-14 h-14 mb-5 rounded-2xl bg-gradient-to-br ${gradientMap[gradient]} flex items-center justify-center text-white shadow-lg group-hover:scale-110 group-hover:shadow-xl group-hover:shadow-glow-violet transition-all duration-300`}
-          >
-            {icon}
-          </div>
-          <h3 className="font-display font-extrabold text-lg text-black mb-2 group-hover:bg-gradient-neon group-hover:bg-clip-text group-hover:text-transparent transition-all">
-            {title}
-          </h3>
-          <p className="text-sm text-text-secondary leading-relaxed mb-4">
-            {description}
-          </p>
-          <div className="flex items-center gap-1.5 text-sm font-semibold text-brand group-hover:gap-3 transition-all">
-            Learn more
-            <ChevronRight className="w-4 h-4" />
-          </div>
-        </CardBody>
-      </Card>
-    </Link>
+    <GradientCard href={href} theme={theme} className="h-full">
+      <GradientCardBody className="p-6 h-full flex flex-col">
+        <GradientIcon theme={theme} size="md" className="mb-5">
+          {icon}
+        </GradientIcon>
+        <h3 className="font-display font-bold text-lg text-white mb-2">
+          {title}
+        </h3>
+        <p className="text-sm text-slate-400 leading-relaxed mb-4 flex-1">
+          {description}
+        </p>
+        <div className="flex items-center gap-1.5 text-sm font-semibold text-gold group-hover:gap-3 transition-all">
+          Learn more
+          <ChevronRight className="w-4 h-4" />
+        </div>
+      </GradientCardBody>
+    </GradientCard>
   );
 }
 
