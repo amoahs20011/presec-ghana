@@ -346,18 +346,6 @@ export default async function AlumniDetailPage({
                       </p>
                     </div>
                   </div>
-                  <ButtonLink
-                    href="/login"
-                    variant="gradient"
-                    size="md"
-                    iconRight={<ArrowRight className="w-4 h-4" />}
-                  >
-                    Sign in to Contact
-                  </ButtonLink>
-                </div>
-              </GradientCardBody>
-            </GradientCard>
-          </div>
         </section>
       </div>
     </div>
