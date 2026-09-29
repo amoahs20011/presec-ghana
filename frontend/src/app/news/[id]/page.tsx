@@ -36,11 +36,11 @@ export default async function NewsDetailPage({
 
   return (
     <>
-      <section className="bg-presec-blue text-white py-12 lg:py-16">
+      <section className="bg-gradient-to-br from-[#172554] to-[#0F172A] text-white py-12 lg:py-16">
         <div className="container">
           <Link
             href="/news"
-            className="text-sm text-presec-gold hover:underline"
+            className="text-sm text-gold hover:underline"
           >
             ← Back to News
           </Link>
@@ -68,7 +68,7 @@ export default async function NewsDetailPage({
         <div className="max-w-3xl mx-auto">
           <Card>
             <CardBody>
-              <p className="text-presec-text whitespace-pre-line text-lg leading-relaxed">
+              <p className="text-slate-200 whitespace-pre-line text-lg leading-relaxed">
                 {item.content}
               </p>
             </CardBody>

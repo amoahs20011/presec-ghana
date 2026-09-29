@@ -48,11 +48,11 @@ export default async function AlbumDetailPage({
 
   return (
     <>
-      <section className="bg-presec-blue text-white py-12 lg:py-16">
+      <section className="bg-gradient-to-br from-[#172554] to-[#0F172A] text-white py-12 lg:py-16">
         <div className="container">
           <Link
             href="/gallery"
-            className="text-sm text-presec-gold hover:underline"
+            className="text-sm text-gold hover:underline"
           >
             ← Back to Gallery
           </Link>
@@ -64,7 +64,7 @@ export default async function AlbumDetailPage({
               {album.description}
             </p>
           )}
-          <p className="mt-3 text-sm text-presec-gold">
+          <p className="mt-3 text-sm text-gold">
             {album.photos?.length || 0}{' '}
             {album.photos?.length === 1 ? 'photo' : 'photos'}
           </p>
@@ -75,7 +75,7 @@ export default async function AlbumDetailPage({
         {!album.photos || album.photos.length === 0 ? (
           <Card>
             <CardBody className="text-center py-12">
-              <p className="text-presec-text-muted">
+              <p className="text-slate-400">
                 No photos in this album yet.
               </p>
             </CardBody>
@@ -85,9 +85,9 @@ export default async function AlbumDetailPage({
             {album.photos.map((photo) => (
               <div
                 key={photo.id}
-                className="bg-white border border-presec-border rounded-lg overflow-hidden shadow-sm"
+                className="bg-white border border-slate-700 rounded-lg overflow-hidden shadow-sm"
               >
-                <div className="aspect-video bg-presec-bg-alt flex items-center justify-center overflow-hidden">
+                <div className="aspect-video bg-[#0F172A] flex items-center justify-center overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={photo.url}
@@ -97,7 +97,7 @@ export default async function AlbumDetailPage({
                 </div>
                 {photo.caption && (
                   <div className="p-3">
-                    <p className="text-sm text-presec-text">
+                    <p className="text-sm text-slate-200">
                       {photo.caption}
                     </p>
                   </div>

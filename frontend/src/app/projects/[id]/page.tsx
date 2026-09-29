@@ -40,11 +40,11 @@ export default async function ProjectDetailPage({
 
   return (
     <>
-      <section className="bg-presec-blue text-white py-12 lg:py-16">
+      <section className="bg-gradient-to-br from-[#172554] to-[#0F172A] text-white py-12 lg:py-16">
         <div className="container">
           <Link
             href="/projects"
-            className="text-sm text-presec-gold hover:underline"
+            className="text-sm text-gold hover:underline"
           >
             ← Back to Projects
           </Link>
@@ -68,10 +68,10 @@ export default async function ProjectDetailPage({
           <div className="lg:col-span-2 space-y-6">
             <Card>
               <CardBody>
-                <h2 className="text-xl font-bold text-presec-blue">
+                <h2 className="text-xl font-bold text-white">
                   About this Project
                 </h2>
-                <p className="mt-4 text-presec-text whitespace-pre-line">
+                <p className="mt-4 text-slate-200 whitespace-pre-line">
                   {project.description ||
                     'No description provided yet for this project.'}
                 </p>
@@ -82,7 +82,7 @@ export default async function ProjectDetailPage({
           <div className="space-y-6">
             <Card>
               <CardBody>
-                <h3 className="font-bold text-presec-blue">
+                <h3 className="font-bold text-white">
                   Funding Progress
                 </h3>
                 <div className="mt-4">
@@ -93,44 +93,44 @@ export default async function ProjectDetailPage({
                     />
                   </div>
                   <div className="mt-3 text-sm">
-                    <div className="text-presec-text-muted text-xs uppercase tracking-wide">
+                    <div className="text-slate-400 text-xs uppercase tracking-wide">
                       Raised
                     </div>
-                    <div className="text-2xl font-bold text-presec-blue">
+                    <div className="text-2xl font-bold text-white">
                       {project.currency} {raised.toLocaleString()}
                     </div>
-                    <div className="text-presec-text-muted mt-1">
+                    <div className="text-slate-400 mt-1">
                       of {project.currency} {target.toLocaleString()}
                     </div>
                   </div>
                   <div className="mt-4 grid grid-cols-2 gap-3 text-center">
-                    <div className="bg-presec-bg-alt rounded p-3">
-                      <div className="text-lg font-bold text-presec-blue">
+                    <div className="bg-[#0F172A] rounded p-3">
+                      <div className="text-lg font-bold text-white">
                         {pct.toFixed(1)}%
                       </div>
-                      <div className="text-xs text-presec-text-muted">
+                      <div className="text-xs text-slate-400">
                         Funded
                       </div>
                     </div>
-                    <div className="bg-presec-bg-alt rounded p-3">
-                      <div className="text-lg font-bold text-presec-blue">
+                    <div className="bg-[#0F172A] rounded p-3">
+                      <div className="text-lg font-bold text-white">
                         {project.contributorCount ?? 0}
                       </div>
-                      <div className="text-xs text-presec-text-muted">
+                      <div className="text-xs text-slate-400">
                         Contributors
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-presec-border">
+                <div className="mt-6 pt-4 border-t border-slate-700">
                   <Link
                     href="/login"
-                    className="block w-full text-center bg-presec-gold text-presec-blue-dark font-semibold px-4 py-3 rounded-md hover:bg-presec-gold-dark transition-colors"
+                    className="block w-full text-center bg-presec-gold text-white-dark font-semibold px-4 py-3 rounded-md hover:bg-presec-gold-dark transition-colors"
                   >
                     Contribute to this Project
                   </Link>
-                  <p className="mt-2 text-xs text-presec-text-muted text-center">
+                  <p className="mt-2 text-xs text-slate-400 text-center">
                     Login required
                   </p>
                 </div>
