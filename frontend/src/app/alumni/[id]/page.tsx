@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import {
   ArrowLeft,
-  ArrowRight,
   MapPin,
   Briefcase,
   GraduationCap,
@@ -16,7 +15,11 @@ import {
 } from 'lucide-react';
 import { Badge } from '@/components/ui/Badge';
 import { ButtonLink } from '@/components/ui/Button';
-import { GradientCard, GradientCardBody, GradientIcon } from '@/components/ui/GradientCard';
+import {
+  GradientCard,
+  GradientCardBody,
+  GradientIcon,
+} from '@/components/ui/GradientCard';
 import { api } from '@/lib/api';
 import type { Alumni } from '@/types';
 import { notFound } from 'next/navigation';
@@ -57,7 +60,9 @@ export default async function AlumniDetailPage({
     : 'Anonymous Alumni';
 
   const initials = person.user
-    ? `${person.user.firstName?.[0] || ''}${person.user.lastName?.[0] || ''}`.toUpperCase()
+    ? `${person.user.firstName?.[0] || ''}${
+        person.user.lastName?.[0] || ''
+      }`.toUpperCase()
     : '?';
 
   return (
@@ -124,7 +129,7 @@ export default async function AlumniDetailPage({
                     </Badge>
                   )}
                   {person.isAvailableForMentorship && (
-                    <Badge color="purple">
+                    <Badge color="white">
                       <Award className="w-3 h-3" />
                       Available for Mentorship
                     </Badge>
@@ -181,7 +186,7 @@ export default async function AlumniDetailPage({
                 </GradientCard>
               )}
 
-              {/* Mentorship areas */}
+              {/* Mentorship Areas */}
               {person.mentorshipAreas &&
                 person.mentorshipAreas.length > 0 && (
                   <GradientCard theme="gold" hover={false}>
@@ -192,30 +197,29 @@ export default async function AlumniDetailPage({
                         </GradientIcon>
                         Mentorship Areas
                       </h2>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-2 mb-5">
                         {person.mentorshipAreas.map((area) => (
                           <Badge key={area} color="gold" size="md">
                             {area}
                           </Badge>
                         ))}
                       </div>
-                      <div className="mt-5 pt-5 border-t border-slate-800">
-                        <ButtonLink
-                          href="/mentorship"
-                          variant="gradient"
-                          size="sm"
-                        >
-                          Request Mentorship
-                        </ButtonLink>
-                      </div>
+                      <ButtonLink
+                        href="/mentorship"
+                        variant="gradient"
+                        size="sm"
+                      >
+                        Request Mentorship
+                      </ButtonLink>
                     </GradientCardBody>
                   </GradientCard>
                 )}
             </div>
 
-            {/* RIGHT: Quick info */}
+            {/* RIGHT: Sidebar */}
             <div className="lg:col-span-1">
               <div className="lg:sticky lg:top-24 space-y-4">
+                {/* Quick Info */}
                 <GradientCard theme="emerald" hover={false}>
                   <GradientCardBody className="p-6">
                     <h3 className="font-display text-lg font-bold text-white mb-5">
@@ -273,7 +277,7 @@ export default async function AlumniDetailPage({
                       )}
                     </dl>
 
-                    {/* Social links */}
+                    {/* Social Links */}
                     {(person.linkedinUrl || person.websiteUrl) && (
                       <div className="mt-6 pt-5 border-t border-slate-800 flex gap-2">
                         {person.linkedinUrl && (
@@ -303,10 +307,14 @@ export default async function AlumniDetailPage({
                   </GradientCardBody>
                 </GradientCard>
 
-                {/* Contact CTA */}
+                {/* Want to Connect — in sidebar */}
                 <GradientCard theme="violet" hover={false}>
                   <GradientCardBody className="p-6 text-center">
-                    <GradientIcon theme="violet" size="md" className="mx-auto mb-3">
+                    <GradientIcon
+                      theme="violet"
+                      size="md"
+                      className="mx-auto mb-3"
+                    >
                       <Mail className="w-6 h-6" />
                     </GradientIcon>
                     <h4 className="font-semibold text-white mb-1">
@@ -328,24 +336,6 @@ export default async function AlumniDetailPage({
               </div>
             </div>
           </div>
-     {/* Contact CTA — moved to bottom, full width */}
-          <div className="mt-10">
-            <GradientCard theme="violet" hover={false}>
-              <GradientCardBody className="p-8">
-                <div className="flex flex-wrap items-center justify-between gap-6">
-                  <div className="flex items-center gap-4">
-                    <GradientIcon theme="violet" size="md">
-                      <Mail className="w-6 h-6" />
-                    </GradientIcon>
-                    <div>
-                      <h4 className="font-display font-bold text-white text-lg mb-1">
-                        Want to connect?
-                      </h4>
-                      <p className="text-sm text-slate-400">
-                        Reach out to {fullName} through the platform.
-                      </p>
-                    </div>
-                  </div>
         </section>
       </div>
     </div>

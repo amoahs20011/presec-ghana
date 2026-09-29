@@ -6,12 +6,19 @@ import {
   Users,
   Ticket,
   ArrowLeft,
+  ArrowRight,
   Share2,
   Award,
+  Sparkles,
+  CheckCircle2,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/Badge';
 import { ButtonLink } from '@/components/ui/Button';
-import { GradientCard, GradientCardBody, GradientIcon } from '@/components/ui/GradientCard';
+import {
+  GradientCard,
+  GradientCardBody,
+  GradientIcon,
+} from '@/components/ui/GradientCard';
 import { api } from '@/lib/api';
 import type { EventItem } from '@/types';
 import { notFound } from 'next/navigation';
@@ -155,8 +162,9 @@ export default async function EventDetailPage({
         {/* CONTENT */}
         <section className="container py-12">
           <div className="grid lg:grid-cols-3 gap-8">
-            {/* LEFT: About */}
+            {/* LEFT: Main content */}
             <div className="lg:col-span-2 space-y-6">
+              {/* About */}
               <GradientCard theme="cyan" hover={false}>
                 <GradientCardBody className="p-6">
                   <h2 className="font-display text-2xl font-bold text-white mb-4 flex items-center gap-2">
@@ -172,16 +180,72 @@ export default async function EventDetailPage({
                 </GradientCardBody>
               </GradientCard>
 
+              {/* What to Expect */}
+              <GradientCard theme="violet" hover={false}>
+                <GradientCardBody className="p-6">
+                  <h2 className="font-display text-xl font-bold text-white mb-4 flex items-center gap-3">
+                    <GradientIcon theme="violet" size="sm">
+                      <Sparkles className="w-5 h-5" />
+                    </GradientIcon>
+                    What to Expect
+                  </h2>
+                  <ul className="space-y-3">
+                    {[
+                      'Reconnect with your classmates and friends',
+                      'Enjoy food, drinks, and entertainment',
+                      'Photo session and memories to last a lifetime',
+                      'Special remarks from the organizing committee',
+                    ].map((item, i) => (
+                      <li
+                        key={i}
+                        className="flex items-start gap-3 text-slate-300 text-sm"
+                      >
+                        <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </GradientCardBody>
+              </GradientCard>
+
+              {/* Organized By */}
+              <GradientCard theme="cyan" hover={false}>
+                <GradientCardBody className="p-6">
+                  <h2 className="font-display text-xl font-bold text-white mb-4 flex items-center gap-3">
+                    <GradientIcon theme="cyan" size="sm">
+                      <Users className="w-5 h-5" />
+                    </GradientIcon>
+                    Organized By
+                  </h2>
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-white font-bold text-lg">
+                      {(event.yearGroup?.name || 'PR')[0]}
+                    </div>
+                    <div>
+                      <div className="font-semibold text-white">
+                        {event.yearGroup?.name || 'PRESEC GHANA'}
+                      </div>
+                      <div className="text-sm text-slate-400">
+                        {event.yearGroup
+                          ? `Class of ${event.yearGroup.graduationYear}`
+                          : 'Official Event'}
+                      </div>
+                    </div>
+                  </div>
+                </GradientCardBody>
+              </GradientCard>
+
+              {/* Location + Map */}
               {event.locationName && (
-                <GradientCard theme="violet" hover={false}>
+                <GradientCard theme="emerald" hover={false}>
                   <GradientCardBody className="p-6">
-                    <h2 className="font-display text-xl font-bold text-white mb-4 flex items-center gap-2">
-                      <GradientIcon theme="violet" size="sm">
+                    <h2 className="font-display text-xl font-bold text-white mb-4 flex items-center gap-3">
+                      <GradientIcon theme="emerald" size="sm">
                         <MapPin className="w-5 h-5" />
                       </GradientIcon>
                       Location
                     </h2>
-                    <div className="text-slate-300">
+                    <div className="mb-4">
                       <div className="font-semibold text-white mb-1">
                         {event.locationName}
                       </div>
@@ -191,125 +255,36 @@ export default async function EventDetailPage({
                         </div>
                       )}
                     </div>
+
+                    {event.locationLat && event.locationLng ? (
+                      <div className="rounded-xl overflow-hidden border border-slate-700 aspect-video">
+                        <iframe
+                          src={`https://www.google.com/maps?q=${event.locationLat},${event.locationLng}&output=embed`}
+                          className="w-full h-full"
+                          style={{ border: 0 }}
+                          allowFullScreen
+                          loading="lazy"
+                        />
+                      </div>
+                    ) : (
+                      <a
+                        href={`https://www.google.com/maps/search/${encodeURIComponent(
+                          event.locationName,
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block rounded-xl border border-slate-700 bg-slate-800/50 aspect-video flex items-center justify-center text-slate-400 hover:text-gold transition-colors"
+                      >
+                        <div className="text-center">
+                          <MapPin className="w-8 h-8 mx-auto mb-2" />
+                          <span className="text-sm">
+                            Open in Google Maps →
+                          </span>
+                        </div>
+                      </a>
+                    )}
                   </GradientCardBody>
                 </GradientCard>
-{/* What to Expect */}
-<GradientCard theme="violet" hover={false}>
-  <GradientCardBody className="p-6">
-    <h2 className="font-display text-xl font-bold text-white mb-4 flex items-center gap-3">
-      <GradientIcon theme="violet" size="sm">
-        <Sparkles className="w-5 h-5" />
-      </GradientIcon>
-      What to Expect
-    </h2>
-    <ul className="space-y-3">
-      {[
-        'Reconnect with your classmates and friends',
-        'Enjoy food, drinks, and entertainment',
-        'Photo session and memories to last a lifetime',
-        'Special remarks from the organizing committee',
-      ].map((item, i) => (
-        <li key={i} className="flex items-start gap-3 text-slate-300 text-sm">
-          <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
-  </GradientCardBody>
-</GradientCard>
-{/* Organizer */}
-<GradientCard theme="cyan" hover={false}>
-  <GradientCardBody className="p-6">
-    <h2 className="font-display text-xl font-bold text-white mb-4 flex items-center gap-3">
-      <GradientIcon theme="cyan" size="sm">
-        <Users className="w-5 h-5" />
-      </GradientIcon>
-      Organized By
-    </h2>
-    <div className="flex items-center gap-4">
-      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-white font-bold text-lg">
-        {(event.yearGroup?.name || 'PR')[0]}
-      </div>
-      <div>
-        <div className="font-semibold text-white">
-          {event.yearGroup?.name || 'PRESEC GHANA'}
-        </div>
-        <div className="text-sm text-slate-400">
-          {event.yearGroup
-            ? `Class of ${event.yearGroup.graduationYear}`
-            : 'Official Event'}
-        </div>
-      </div>
-    </div>
-  </GradientCardBody>
-</GradientCard>
-{/* Location + Map */}
-{event.locationName && (
-  <GradientCard theme="emerald" hover={false}>
-    <GradientCardBody className="p-6">
-      <h2 className="font-display text-xl font-bold text-white mb-4 flex items-center gap-3">
-        <GradientIcon theme="emerald" size="sm">
-          <MapPin className="w-5 h-5" />
-        </GradientIcon>
-        Location
-      </h2>
-      <div className="mb-4">
-        <div className="font-semibold text-white mb-1">
-          {event.locationName}
-        </div>
-        {event.locationAddress && (
-          <div className="text-sm text-slate-400">
-            {event.locationAddress}
-          </div>
-        )}
-      </div>
-      {event.locationLat && event.locationLng ? (
-        <div className="rounded-xl overflow-hidden border border-slate-700 aspect-video">
-          <iframe
-            src={`https://www.google.com/maps?q=${event.locationLat},${event.locationLng}&output=embed`}
-            className="w-full h-full"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-          />
-        </div>
-      ) : (
-        <div className="rounded-xl border border-slate-700 bg-slate-800/50 aspect-video flex items-center justify-center">
-          <a
-            href={`https://www.google.com/maps/search/${encodeURIComponent(event.locationName)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-center text-slate-400 hover:text-gold transition-colors"
-          >
-            <MapPin className="w-8 h-8 mx-auto mb-2" />
-            <span className="text-sm">Open in Google Maps →</span>
-          </a>
-        </div>
-      )}
-    </GradientCardBody>
-  </GradientCard>
-{/* Related Events CTA — outside grid */}
-<section className="container pb-12">
-  <div className="text-center mb-8">
-    <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-white mb-3">
-      More <span className="gradient-text-gold">Upcoming Events</span>
-    </h2>
-    <p className="text-slate-400">
-      Explore other events bringing the PRESEC community together
-    </p>
-  </div>
-  <div className="text-center">
-    <ButtonLink
-      href="/events"
-      variant="gradient"
-      size="lg"
-      iconRight={<ArrowRight className="w-4 h-4" />}
-    >
-      View All Events
-    </ButtonLink>
-  </div>
-</section>
-)}
               )}
             </div>
 
@@ -323,7 +298,6 @@ export default async function EventDetailPage({
                     </h3>
 
                     <div className="space-y-4 mb-6">
-                      {/* Price */}
                       <div className="flex items-center justify-between pb-4 border-b border-slate-800">
                         <div className="flex items-center gap-2 text-sm text-slate-400">
                           <Ticket className="w-4 h-4" />
@@ -332,11 +306,12 @@ export default async function EventDetailPage({
                         <div className="font-bold text-white">
                           {isFree
                             ? 'Free'
-                            : `${event.currency} ${Number(event.ticketPrice).toFixed(0)}`}
+                            : `${event.currency} ${Number(
+                                event.ticketPrice,
+                              ).toFixed(0)}`}
                         </div>
                       </div>
 
-                      {/* Capacity */}
                       {event.maxAttendees && (
                         <div className="flex items-center justify-between pb-4 border-b border-slate-800">
                           <div className="flex items-center gap-2 text-sm text-slate-400">
@@ -349,7 +324,6 @@ export default async function EventDetailPage({
                         </div>
                       )}
 
-                      {/* Spots left */}
                       {spotsLeft !== null && (
                         <div className="text-center">
                           {spotsLeft > 0 ? (
@@ -363,7 +337,6 @@ export default async function EventDetailPage({
                       )}
                     </div>
 
-                    {/* Register button */}
                     <ButtonLink
                       href={`/events/${event.id}/register`}
                       variant="gradient"
@@ -377,7 +350,6 @@ export default async function EventDetailPage({
                       Login required
                     </p>
 
-                    {/* Share */}
                     <button
                       type="button"
                       className="mt-4 w-full flex items-center justify-center gap-2 text-sm text-slate-400 hover:text-white transition-colors py-2"
@@ -391,12 +363,27 @@ export default async function EventDetailPage({
             </div>
           </div>
         </section>
+
+        {/* Related Events CTA */}
+        <section className="container pb-16">
+          <div className="text-center mb-8">
+            <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-white mb-3">
+              More <span className="gradient-text-gold">Upcoming Events</span>
+            </h2>
+            <p className="text-slate-400 mb-6">
+              Explore other events bringing the PRESEC community together
+            </p>
+            <ButtonLink
+              href="/events"
+              variant="gradient"
+              size="lg"
+              iconRight={<ArrowRight className="w-4 h-4" />}
+            >
+              View All Events
+            </ButtonLink>
+          </div>
+        </section>
       </div>
     </div>
   );
 }
-
-
-
-
-
