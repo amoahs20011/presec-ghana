@@ -5,13 +5,13 @@ import {
   Briefcase,
   GraduationCap,
   Mail,
-  Linkedin,
   Globe,
   CheckCircle2,
   Award,
   Building2,
   Users,
   BookOpen,
+  Link2,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/Badge';
 import { ButtonLink } from '@/components/ui/Button';
@@ -282,7 +282,7 @@ export default async function AlumniDetailPage({
                             rel="noopener noreferrer"
                             className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:text-white hover:border-blue-500 transition-colors text-sm"
                           >
-                            <Linkedin className="w-4 h-4" />
+                            <Link2 className="w-4 h-4" />
                             LinkedIn
                           </a>
                         )}
