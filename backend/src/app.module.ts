@@ -21,6 +21,7 @@ import { BusinessesModule } from './modules/businesses/businesses.module';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { RolesGuard } from './modules/auth/guards/roles.guard';
 import { UploadsModule } from './modules/uploads/uploads.module';
+import { AdminModule } from './modules/admin/admin.module';
 
 @Module({
     imports: [
@@ -45,6 +46,7 @@ import { UploadsModule } from './modules/uploads/uploads.module';
     MentorshipModule,
     BusinessesModule,
     UploadsModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [
