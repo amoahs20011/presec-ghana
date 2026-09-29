@@ -22,20 +22,60 @@ export class AlumniService {
     private readonly yearGroupsService: YearGroupsService,
   ) {}
 
-  async getMyProfile(userId: string): Promise<AlumniProfile> {
-    const profile = await this.repo.findOne({ where: { userId } });
+  async getMyProfile(userId: string): Promise<any> {
+    const profile = await this.repo.findOne({
+      where: { userId },
+      relations: { user: true, school: true, yearGroup: true },
+    });
+
+    // For new users without a profile, return a stub
     if (!profile) {
-      throw new NotFoundException(
-        'Alumni profile not found. Please create one.',
-      );
+      // Get the user to include their info
+      const user = await this.repo.manager
+        .getRepository('User')
+        .findOne({ where: { id: userId } });
+
+      return {
+        id: null,
+        userId,
+        programme: null,
+        graduationYear: null,
+        currentProfession: null,
+        currentEmployer: null,
+        industry: null,
+        locationCity: null,
+        locationCountry: null,
+        skills: [],
+        bio: null,
+        linkedinUrl: null,
+        websiteUrl: null,
+        isAvailableForMentorship: false,
+        mentorshipAreas: [],
+        verificationStatus: 'pending',
+        user,
+        school: null,
+        yearGroup: null,
+        _isNew: true,
+      };
     }
+
     return profile;
   }
 
-  async upsertMyProfile(
+    async upsertMyProfile(
     userId: string,
     dto: UpsertAlumniProfileDto,
   ): Promise<AlumniProfile> {
+    // Handle profilePhotoUrl on the users table
+    if (dto.profilePhotoUrl !== undefined) {
+      await this.repo.manager
+        .getRepository('User')
+        .update(userId, { profilePhotoUrl: dto.profilePhotoUrl });
+    }
+
+    // Strip profilePhotoUrl from alumni fields
+    const { profilePhotoUrl: _ignored, ...alumniFields } = dto;
+
     let profile = await this.repo.findOne({ where: { userId } });
 
     let yearGroupId: string | null = null;
