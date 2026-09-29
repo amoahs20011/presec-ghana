@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
@@ -35,21 +35,26 @@ export class UsersService {
       `SELECT code, label, category, description
        FROM user_types
        ORDER BY sort_order ASC`,
+    );
+  }
 
-  async findAll(params: { limit?: number; offset?: number; role?: string } = {}) {
-    const qb = this.repo.createQueryBuilder('user');
+  async findAll(params: {
+    limit?: number;
+    offset?: number;
+    role?: string;
+  }) {
+    const qb = this.userRepository.createQueryBuilder('user');
 
     if (params.role) {
       qb.andWhere('user.role = :role', { role: params.role });
     }
 
-    qb.orderBy('user.created_at', 'DESC')
+    qb.orderBy('user.createdAt', 'DESC')
       .take(params.limit || 50)
       .skip(params.offset || 0);
 
     const [items, total] = await qb.getManyAndCount();
 
-    // Strip password hashes
     return {
       items: items.map((u) => {
         const { passwordHash, ...safe } = u as any;
@@ -62,20 +67,24 @@ export class UsersService {
   }
 
   async findOne(id: string) {
-    const user = await this.repo.findOne({ where: { id } });
+    const user = await this.userRepository.findOne({ where: { id } });
     if (!user) return null;
     const { passwordHash, ...safe } = user as any;
     return safe;
   }
 
   async updateRole(id: string, role: string) {
-    await this.repo.update(id, { role: role as any });
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) throw new NotFoundException('User not found');
+    user.role = role as any;
+    await this.userRepository.save(user);
     return this.findOne(id);
   }
 
   async getStats() {
-    const total = await this.repo.count();
-    const byRole = await this.repo
+    const total = await this.userRepository.count();
+
+    const byRole = await this.userRepository
       .createQueryBuilder('user')
       .select('user.role', 'role')
       .addSelect('COUNT(*)', 'count')
@@ -83,7 +92,5 @@ export class UsersService {
       .getRawMany();
 
     return { total, byRole };
-  }
-    );
   }
 }

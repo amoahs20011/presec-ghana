@@ -1,3 +1,4 @@
+import { VerificationStatus } from '../alumni/alumni-profile.entity';
 import { Controller, Get } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -44,7 +45,9 @@ export class AdminController {
       this.announcementRepo.count(),
       this.opportunityRepo.count(),
       this.businessRepo.count(),
-      this.alumniRepo.count({ where: { verificationStatus: 'pending' } }),
+  this.alumniRepo.count({
+  where: { verificationStatus: VerificationStatus.PENDING },
+}),
     ]);
 
     return {
@@ -62,8 +65,8 @@ export class AdminController {
   @Get('pending-alumni')
   async getPendingAlumni() {
     return this.alumniRepo.find({
-      where: { verificationStatus: 'pending' },
-      relations: ['user', 'school'],
+      where: { verificationStatus: VerificationStatus.PENDING },
+      relations: { user: true, school: true },
       take: 20,
     });
   }
