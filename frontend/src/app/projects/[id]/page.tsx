@@ -255,7 +255,7 @@ export default async function ProjectDetailPage({
           </div>
 
           {/* CTA */}
-          <div className="mt-16 relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600 via-cyan-600 to-blue-600 p-10 md:p-14">
+          <div className="mt-16 relative z-0 overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600 via-cyan-600 to-blue-600 p-10 md:p-14">
             <div className="absolute inset-0 bg-slate-900/40" />
             <div className="relative max-w-2xl">
               <Badge

@@ -293,7 +293,7 @@ export default async function OpportunityDetailPage({
 
             {/* RIGHT: Apply card */}
             <div className="lg:col-span-1">
-              <div className="lg:sticky lg:top-24 space-y-4">
+              <div className="lg:sticky lg:top-24 space-y-4 z-10">
                 <GradientCard theme="gold" hover={false}>
                   <GradientCardBody className="p-6 text-center">
                     <GradientIcon theme="gold" size="md" className="mx-auto mb-4">
@@ -357,7 +357,7 @@ export default async function OpportunityDetailPage({
           </div>
 
           {/* CTA */}
-          <div className="mt-16 relative overflow-hidden rounded-3xl bg-gradient-to-br from-cyan-600 via-blue-600 to-violet-600 p-10 md:p-14">
+          <div className="mt-16 relative z-0 overflow-hidden rounded-3xl bg-gradient-to-br from-cyan-600 via-blue-600 to-violet-600 p-10 md:p-14">
             <div className="absolute inset-0 bg-slate-900/40" />
             <div className="relative max-w-2xl">
               <Badge
