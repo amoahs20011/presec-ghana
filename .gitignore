@@ -36,3 +36,6 @@ Thumbs.db
 # Database
 *.sqlite
 *.db
+backend/.env
+frontend/.env.local
+.env*
