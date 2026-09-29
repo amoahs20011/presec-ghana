@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import {
   ArrowLeft,
+  ArrowRight,
   MapPin,
   Briefcase,
   GraduationCap,
@@ -326,6 +327,36 @@ export default async function AlumniDetailPage({
                 </GradientCard>
               </div>
             </div>
+          </div>
+     {/* Contact CTA — moved to bottom, full width */}
+          <div className="mt-10">
+            <GradientCard theme="violet" hover={false}>
+              <GradientCardBody className="p-8">
+                <div className="flex flex-wrap items-center justify-between gap-6">
+                  <div className="flex items-center gap-4">
+                    <GradientIcon theme="violet" size="md">
+                      <Mail className="w-6 h-6" />
+                    </GradientIcon>
+                    <div>
+                      <h4 className="font-display font-bold text-white text-lg mb-1">
+                        Want to connect?
+                      </h4>
+                      <p className="text-sm text-slate-400">
+                        Reach out to {fullName} through the platform.
+                      </p>
+                    </div>
+                  </div>
+                  <ButtonLink
+                    href="/login"
+                    variant="gradient"
+                    size="md"
+                    iconRight={<ArrowRight className="w-4 h-4" />}
+                  >
+                    Sign in to Contact
+                  </ButtonLink>
+                </div>
+              </GradientCardBody>
+            </GradientCard>
           </div>
         </section>
       </div>
