@@ -44,10 +44,12 @@ export class UploadsService {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
           folder,
-          resource_type: 'image',
+          resource_type: 'raw',
+          timeout: 120000,          // 2-minute timeout
+          chunk_size: 6000000,      // Chunked uploads (6MB chunks)
           transformation: [
-            { width: 1200, height: 1200, crop: 'limit' },
-            { quality: 'auto:good' },
+            { width: 1000, height: 1000, crop: 'limit' },
+            { quality: 'auto:low' },   // More aggressive compression
             { fetch_format: 'auto' },
           ],
         },
