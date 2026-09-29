@@ -100,12 +100,7 @@ export default function ProfilePage() {
         isAvailableForMentorship: availableForMentorship,
       };
 
-      // If we have a new profile photo, also update the user
-      if (profilePhotoUrl) {
-        // Some backends accept profilePhotoUrl on the alumni endpoint
-        // If not, you'd need a /users/me PUT endpoint
-        payload.profilePhotoUrl = profilePhotoUrl;
-      }
+
 
       await api.put('/alumni/me', payload, true);
       await refreshUser();

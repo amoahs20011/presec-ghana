@@ -22,15 +22,14 @@ export class AlumniService {
     private readonly yearGroupsService: YearGroupsService,
   ) {}
 
-  async getMyProfile(userId: string): Promise<any> {
+   async getMyProfile(userId: string): Promise<any> {
     const profile = await this.repo.findOne({
       where: { userId },
       relations: { user: true, school: true, yearGroup: true },
     });
 
-    // For new users without a profile, return a stub
+    // For new users without a profile, return a stub so the UI can render
     if (!profile) {
-      // Get the user to include their info
       const user = await this.repo.manager
         .getRepository('User')
         .findOne({ where: { id: userId } });
