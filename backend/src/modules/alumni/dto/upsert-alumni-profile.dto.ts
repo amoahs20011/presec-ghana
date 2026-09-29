@@ -1,3 +1,5 @@
+import { IsOptional, IsString } from 'class-validator';
+
 import {
   IsOptional,
   IsString,
@@ -14,6 +16,10 @@ export class UpsertAlumniProfileDto {
   @IsOptional()
   @IsString()
   schoolId?: string;
+
+  @IsOptional()
+  @IsString()
+  profilePhotoUrl?: string;
 
   @IsOptional()
   @IsInt()

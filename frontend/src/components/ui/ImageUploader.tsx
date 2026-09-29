@@ -1,7 +1,31 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import imageCompression from 'browser-image-compression';
 import { uploadImage } from '@/lib/uploads';
+
+async function compressImage(file: File): Promise<File> {
+  // Skip compression for very small files
+  if (file.size < 500 * 1024) return file;
+
+  try {
+    const compressed = await imageCompression(file, {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1600,
+      useWebWorker: true,
+      initialQuality: 0.8,
+    });
+    console.log(
+      `Image compressed: ${(file.size / 1024).toFixed(0)}KB → ${(
+        compressed.size / 1024
+      ).toFixed(0)}KB`,
+    );
+    return compressed;
+  } catch (err) {
+    console.warn('Compression failed, using original:', err);
+    return file;
+  }
+}
 
 interface ImageUploaderProps {
   value?: string | null;
@@ -33,7 +57,7 @@ export function ImageUploader({
   const shapeClass =
     shape === 'circle' ? 'rounded-full' : 'rounded-lg';
 
-  async function handleFile(file: File) {
+    async function handleFile(file: File) {
     setError(null);
 
     if (file.size > maxSizeMB * 1024 * 1024) {
@@ -52,7 +76,10 @@ export function ImageUploader({
     setUploading(true);
 
     try {
-      const result = await uploadImage(file, folder);
+      // Compress first to speed up upload
+      const compressed = await compressImage(file);
+
+      const result = await uploadImage(compressed, folder);
       onChange(result.url);
       setPreview(result.url);
     } catch (err) {
