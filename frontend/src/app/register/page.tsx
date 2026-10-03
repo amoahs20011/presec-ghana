@@ -233,7 +233,7 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-[#0F172A] py-12">
-      <div className="container max-w-2xl">
+      <div className="container max-w-2xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
           <Link
