@@ -20,6 +20,7 @@ export default function ProfilePage() {
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const { showToast } = useToast();
 
   // Form fields
   const [profilePhotoUrl, setProfilePhotoUrl] = useState<string | null>(null);
@@ -106,9 +107,12 @@ export default function ProfilePage() {
       await api.put('/alumni/me', payload, true);
       await refreshUser();
       setMessage('Profile updated successfully');
+      showToast('Profile updated successfully', 'success');
     } catch (err: any) {
       console.error('Save failed', err);
-      setError(err?.message || 'Failed to save profile');
+      const msg = err?.message || 'Failed to save profile';
+      setError(msg);
+      showToast(msg, 'error');
     } finally {
       setSaving(false);
     }
